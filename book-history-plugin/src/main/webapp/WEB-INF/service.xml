@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+<service-builder package-path="fi.csc.avaa.khl.db">
+	<author>CSC</author>
+	<namespace>khl</namespace>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="vanhatkirjat"
+		name="Vanhatkirjat">
+		<column name="vkid" type="int" primary="true"></column>
+		<column name="kuntaid" type="int"></column>
+		<column name="maakuntaid" type="int"></column>
+		<column name="lomakenum" type="int"></column>
+		<column name="paivays" type="Date"></column>
+		<column name="kartkohde" type="int"></column>
+		<column name="tekija" type="String"></column>
+		<column name="teoknimi" type="String"></column>
+		<column name="painovuosi" type="int"></column>
+		<column name="painopaikka" type="String"></column>
+		<column name="kirjapaino" type="String" convert-null="false"></column>
+		<column name="painosmerk" type="int"></column> <!-- -1, 0, 1 => Ei asetettu, Ei, Kyllä -->
+		<column name="imprimatur" type="int"></column> <!-- -1, 0, 1 => Ei asetettu, Ei, Kyllä -->
+		<column name="kuvitus" type="int"></column> <!-- -1, 0, 1 => Ei asetettu, Ei, Kyllä -->
+		<column name="kartat" type="int"></column> <!-- -1, 0, 1 => Ei asetettu, Ei, Kyllä -->
+		<column name="liitteita" type="int"></column> <!-- -1, 0, 1 => Ei asetettu, Ei, Kyllä -->
+		<column name="nimikirj" type="String"></column>
+		<column name="sinetti" type="int"></column> <!-- -1, 0, 1 => Ei asetettu, Ei, Kyllä -->
+		<column name="leima" type="int"></column> <!-- -1, 0, 1 => Ei asetettu, Ei, Kyllä -->
+		<column name="exlibris" type="int"></column> <!-- -1, 0, 1 => Ei asetettu, Ei, Kyllä -->
+		<column name="hintamerk" type="int"></column> <!-- -1, 0, 1 => Ei asetettu, Ei, Kyllä -->
+		<column name="omiste" type="String"></column>
+		<column name="reunamerk" type="String"></column>
+		<column name="lisatieto" type="String"></column>
+		<column name="lahosoite" type="String"></column>
+		<column name="lahemail" type="String"></column>
+		<column name="status" type="int"></column>
+		<column name="kieliid" type="int"></column>
+		<column name="kielestaid" type="int"></column>
+		<column name="julklajiid" type="int"></column>
+		<column name="kuntoid" type="int"></column>
+		<column name="puuteid" type="int"></column>
+		<column name="teospkid" type="int"></column>
+		<column name="sidonta" type="int"></column>
+		<column name="kokoelma" type="String"></column>
+		<column name="poistettu" type="Date"></column>
+		<column name="muokattu" type="Date"></column>
+        <finder name="PublishStatus" return-type="Collection">
+        	<finder-column name="status"/>
+        </finder>
+	</entity>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="kuntainfo"
+		name="Kuntainfo">
+		<column name="kuntaid" type="int" primary="true"></column>
+		<column name="capitalkuntanimi" type="String"></column>
+		<column name="kpl" type="int"></column>
+		<column name="kuntanimi" type="String"></column>
+		<column name="maakuntaid" type="int"></column>
+		<column name="kuntano" type="int"></column>
+		<column name="kuntanimi_2014" type="String"></column>
+		<finder name="Capitalkuntanimi" return-type="Kuntainfo">
+        	<finder-column name="capitalkuntanimi"/>
+        </finder>
+	</entity>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="maakuntainfo"
+		name="Maakuntainfo">
+		<column name="maakuntaid" type="int" primary="true"></column>
+		<column name="maakunta" type="String"></column>
+		<column name="kpl" type="int"></column>
+	</entity>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="kartoituskohde"
+		name="Kartoituskohde">
+		<column name="kohdeid" type="int" primary="true"></column>
+		<column name="kartkohde" type="String"></column>
+		<column name="kpl" type="int"></column>
+		<finder name="Kartkohde" return-type="Kartoituskohde">
+        	<finder-column name="kartkohde"/>
+        </finder>
+	</entity>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="julklajiinfo"
+		name="Julkaisulajiinfo">
+		<column name="julklajiid" type="int" primary="true"></column>
+		<column name="julklaji" type="String"></column>
+		<finder name="Julklaji" return-type="Julkaisulajiinfo">
+        	<finder-column name="julklaji"/>
+        </finder>
+	</entity>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="kielesta"
+		name="Kielesta">
+		<column name="kieliid" type="int" primary="true"></column>
+		<column name="kieli" type="String"></column>
+		<finder name="Kieli" return-type="Kielesta">
+        	<finder-column name="kieli"/>
+        </finder>
+	</entity>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="kieliinfo"
+		name="Kieliinfo">
+		<column name="kieliid" type="int" primary="true"></column>
+		<column name="kieli" type="String"></column>
+		<finder name="Kieli" return-type="Kieliinfo">
+        	<finder-column name="kieli"/>
+        </finder>
+	</entity>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="kuntoluokitus"
+		name="Kuntoluokitus">
+		<column name="kuntoid" type="int" primary="true"></column>
+		<column name="kunto" type="String"></column>
+		<finder name="Kunto" return-type="Kuntoluokitus">
+        	<finder-column name="kunto"/>
+        </finder>
+	</entity>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="puute"
+		name="Puute">
+		<column name="puuteid" type="int" primary="true"></column>
+		<column name="puutenimi" type="String"></column>
+		<finder name="Puutenimi" return-type="Puute">
+        	<finder-column name="puutenimi"/>
+        </finder>
+	</entity>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="sidottu"
+		name="Sidottu">
+		<column name="sidontaid" type="int" primary="true"></column>
+		<column name="sidonta" type="String"></column>
+		<finder name="Sidonta" return-type="Sidottu">
+        	<finder-column name="sidonta"/>
+        </finder>
+	</entity>
+	<entity local-service="true" remote-service="true" data-source="khl"
+		session-factory="khlSessionFactory" cache-enabled="true" table="teospk"
+		name="Teospk">
+		<column name="teospkid" type="int" primary="true"></column>
+		<column name="teospknimi" type="String"></column>
+		<finder name="Teospknimi" return-type="Teospk">
+        	<finder-column name="teospknimi"/>
+        </finder>
+	</entity>
+</service-builder>

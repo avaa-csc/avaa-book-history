@@ -1,0 +1,179 @@
+.year-search-layout {
+	background-color: aliceblue;
+}
+
+.v-caption-tab-navigation {
+	margin-bottom: 15px;
+}
+
+.v-caption-horizontal-radio-input {
+	margin-bottom: 10px !important;
+}
+
+.horizontal-radio-input.horizontal .v-radiobutton {
+	display: inline-block !important;
+	margin-right: 20px !important;
+}
+
+.horizontal-radio-input input {
+	margin-right: 5px !important;
+}
+
+.horizontal-radio-input label {
+	display: inline-block !important;
+	vertical-align: sub !important;
+}
+
+.form-buttons {
+	margin-top: 20px !important;
+}
+
+.vk-details-subheading {
+	font-size: 17px !important;
+	font-weight: 700 !important;
+	margin-top: 15px !important;
+	margin-bottom: 10px !important;
+}
+
+.vk-details-header {
+	font-size: 20px !important;
+	font-weight: 700 !important;
+}
+
+.vk-details-header-row {
+	margin-top: 10px !important;
+	margin-bottom: 15px !important;
+}
+
+.vk-field-optiongroup label {
+	display: inline-block !important;
+    vertical-align: sub !important;
+    margin-left: 10px !important;
+}
+
+.v-caption-vk-field-optiongroup {
+	font-size: 16px !important;
+	margin-top: 5px !important;
+	margin-bottom: 10px !important;
+	font-weight: 700 !important;
+}
+
+.modal-layout {
+	padding-left: 10px !important;	
+}
+
+.choose-all-selection {
+	font-size: 18px !important;
+	font-weight: 700 !important;
+}
+
+.choose-all-selection label {
+	display: inline-block !important;
+    vertical-align: sub !important;
+    margin-left: 10px !important;
+}
+
+.map-iframe {
+	border: 1px solid grey;
+}
+
+.v-select-error select, .v-textfield-error, .v-filterselect-error {
+	border-color: red !important;
+}
+
+.accept-modify {
+	float: right !important;
+}
+
+.info-layout {
+	padding-left: 50px !important;
+	max-width: 700px;
+}
+
+.resizable-textarea {
+	resize: both !important;
+}
+
+.v-grid-row:hover .v-grid-cell {
+    background-color: grey;
+}
+/*
+.v-grid .grid-cell-wrap {
+	white-space: normal !important;
+}
+
+
+.v-grid .v-grid-body .v-grid-cell {
+	height: 50px !important;
+}
+
+
+.v-grid .grid-cell-middle {
+	padding-top: 10px !important;
+}
+*/
+.v-grid .grid-cell-center {
+	text-align: center !important;
+}
+
+.v-nativebutton-multiline .v-nativebutton-caption {
+   white-space: normal !important;
+}
+
+.v-slot-year-search-label .v-caption, .v-slot-year-search-label .v-label {
+	display: inline !important;
+}
+
+.v-slot-year-search-label .v-caption .v-icon {
+	vertical-align: top !important;
+}
+
+.v-slot-year-search-label .v-widget {
+	line-height: 2 !important;
+}
+
+.v-tabsheet.hide-borders .v-tabsheet-content {
+	border-left: none !important;
+	border-right: none !important;
+}
+
+.v-tabsheet.hide-borders .v-tabsheet-deco {
+	border-top: none !important;
+}
+
+.disclaimer-accept {
+    margin-bottom: 20px !important;	
+}
+
+.disclaimer-accept input {
+	margin: 0px !important;
+}
+
+.disclaimer-accept label {
+	margin-bottom: 0px !important;
+	margin-left: 10px !important;
+	display: inline-block !important;
+}
+
+.disclaimer-text {
+	text-align: justify !important;
+}
+
+.feedback-description {
+	text-align: justify !important;
+}
+
+/* Web feedback form related stuff */
+
+.web-form-portlet .control-label, .web-form-portlet .description {
+	font-family: Arial,Helvetica,"Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, sans-serif !important;
+	font-size: 13px !important;
+}
+
+.web-form-portlet {
+	display:none;
+}
+
+.map-wrapper {
+	height: initial !important;
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+<sql id="fi.csc.avaa.khl.db.service.persistence.VanhatkirjatFinder.deleteAllVanhatkirjat" >
+<![CDATA[
+DELETE FROM vanhatkirjat;
+]]>
+</sql>
+</custom-sql>

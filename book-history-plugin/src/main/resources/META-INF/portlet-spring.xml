@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="fi.csc.avaa.khl.db.service.JulkaisulajiinfoLocalService" class="fi.csc.avaa.khl.db.service.impl.JulkaisulajiinfoLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.JulkaisulajiinfoService" class="fi.csc.avaa.khl.db.service.impl.JulkaisulajiinfoServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.JulkaisulajiinfoPersistence" class="fi.csc.avaa.khl.db.service.persistence.JulkaisulajiinfoPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.KartoituskohdeLocalService" class="fi.csc.avaa.khl.db.service.impl.KartoituskohdeLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.KartoituskohdeService" class="fi.csc.avaa.khl.db.service.impl.KartoituskohdeServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.KartoituskohdePersistence" class="fi.csc.avaa.khl.db.service.persistence.KartoituskohdePersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.KielestaLocalService" class="fi.csc.avaa.khl.db.service.impl.KielestaLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.KielestaService" class="fi.csc.avaa.khl.db.service.impl.KielestaServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.KielestaPersistence" class="fi.csc.avaa.khl.db.service.persistence.KielestaPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.KieliinfoLocalService" class="fi.csc.avaa.khl.db.service.impl.KieliinfoLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.KieliinfoService" class="fi.csc.avaa.khl.db.service.impl.KieliinfoServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.KieliinfoPersistence" class="fi.csc.avaa.khl.db.service.persistence.KieliinfoPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.KuntainfoLocalService" class="fi.csc.avaa.khl.db.service.impl.KuntainfoLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.KuntainfoService" class="fi.csc.avaa.khl.db.service.impl.KuntainfoServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.KuntainfoPersistence" class="fi.csc.avaa.khl.db.service.persistence.KuntainfoPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.KuntoluokitusLocalService" class="fi.csc.avaa.khl.db.service.impl.KuntoluokitusLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.KuntoluokitusService" class="fi.csc.avaa.khl.db.service.impl.KuntoluokitusServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.KuntoluokitusPersistence" class="fi.csc.avaa.khl.db.service.persistence.KuntoluokitusPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.MaakuntainfoLocalService" class="fi.csc.avaa.khl.db.service.impl.MaakuntainfoLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.MaakuntainfoService" class="fi.csc.avaa.khl.db.service.impl.MaakuntainfoServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.MaakuntainfoPersistence" class="fi.csc.avaa.khl.db.service.persistence.MaakuntainfoPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.PuuteLocalService" class="fi.csc.avaa.khl.db.service.impl.PuuteLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.PuuteService" class="fi.csc.avaa.khl.db.service.impl.PuuteServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.PuutePersistence" class="fi.csc.avaa.khl.db.service.persistence.PuutePersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.SidottuLocalService" class="fi.csc.avaa.khl.db.service.impl.SidottuLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.SidottuService" class="fi.csc.avaa.khl.db.service.impl.SidottuServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.SidottuPersistence" class="fi.csc.avaa.khl.db.service.persistence.SidottuPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.TeospkLocalService" class="fi.csc.avaa.khl.db.service.impl.TeospkLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.TeospkService" class="fi.csc.avaa.khl.db.service.impl.TeospkServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.TeospkPersistence" class="fi.csc.avaa.khl.db.service.persistence.TeospkPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.VanhatkirjatLocalService" class="fi.csc.avaa.khl.db.service.impl.VanhatkirjatLocalServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.VanhatkirjatService" class="fi.csc.avaa.khl.db.service.impl.VanhatkirjatServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.VanhatkirjatPersistence" class="fi.csc.avaa.khl.db.service.persistence.VanhatkirjatPersistenceImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+	<bean id="fi.csc.avaa.khl.db.service.persistence.VanhatkirjatFinder" class="fi.csc.avaa.khl.db.service.persistence.VanhatkirjatFinderImpl" parent="basePersistence">
+		<property name="dataSource" ref="khl" />
+		<property name="sessionFactory" ref="khlSessionFactory" />
+	</bean>
+</beans>

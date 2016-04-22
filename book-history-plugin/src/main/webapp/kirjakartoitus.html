@@ -1,0 +1,789 @@
+<meta charset="utf-8" /> 
+<link rel="stylesheet" href="//avaa.tdata.fi/commonjs/ol/3.7.0/ol.css" type="text/css">
+<link rel="stylesheet" href="//avaa.tdata.fi/commonjs/ol3-layerswitcher/ol3-layerswitcher.css"/>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//avaa.tdata.fi/commonjs/ol/3.7.0/ol.js"></script>
+<script src="//avaa.tdata.fi/commonjs/ol3-layerswitcher/ol3-layerswitcher.js" type="text/javascript"></script>
+<style>
+
+#legend-container {
+	margin-bottom: 10px;
+}
+
+#legend-items {
+	float: left;
+}
+
+#legend-description {
+	float: right;
+}
+
+#legend-container {
+    margin-top: 5px;
+}
+
+.legend-item {
+	position: relative;
+}
+
+.legend-item-text {
+    padding-left: 25px;
+}
+
+.legend-item-color {
+	width: 10px;
+    height: 10px;
+    display: inline-block;
+    background-color: #ccc;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    border: solid 1px;
+}
+
+.layer-switcher button {
+    width: 35px;
+    height: 35px;
+    background-color: beige;
+    background-position: 0px;
+}
+
+.layer-switcher .panel ul {
+    margin-left: 0px;
+}
+
+.layer-switcher .panel ul li label {
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.layer-switcher .panel ul li:nth-child(1) label {
+    padding-top: 20px;
+}
+
+#map {
+	height: 630px;
+	width: 100%;
+}
+
+.ol-popup {
+	position: absolute;
+	background-color: white;
+	-webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+	filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+	padding: 15px;
+	border-radius: 10px;
+	border: 1px solid #cccccc;
+	bottom: 12px;
+	left: -50px;
+}
+
+#popup-content {
+	width: 190px;
+/*	white-space: pre;*/
+	padding: 10px;
+	font-size: 14px;
+}
+
+.ol-popup:after, .ol-popup:before {
+	top: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.ol-popup:after {
+	border-top-color: white;
+	border-width: 10px;
+	left: 48px;
+	margin-left: -10px;
+}
+
+.ol-popup:before {
+	border-top-color: #cccccc;
+	border-width: 11px;
+	left: 48px;
+	margin-left: -11px;
+}
+
+.ol-popup-closer {
+	text-decoration: none;
+	position: absolute;
+	top: 2px;
+	right: 8px;
+}
+
+.ol-popup-closer:after {
+	content: "✖";
+}
+
+.map-info {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.municipality-link {
+	font-weight: bold;
+}
+</style>
+
+<body>
+	<main>
+		<div id="map" class="map"></div>
+		<div id="legend-container"></div>
+		<div id="popup" class="ol-popup">
+			<a href="#" id="popup-closer" class="ol-popup-closer"></a>
+			<div id="popup-content"></div>
+		</div>
+	</main>
+</body>
+	
+<script type="text/javascript">
+	
+	function Translator(language) {
+	    this.language = language;
+	    var translations = {
+	        map: {
+	            basemap: {
+	                fi_FI: "Taustakartta",
+	                sv_SE: "Bakgrundskarta",
+	                en_US: "Background map"
+	            },
+	            provence: {
+	            	fi_FI: "Maakuntarajat",
+	                sv_SE: "Landskapgränser",
+	                en_US: "Province borders"
+	            },
+	            mappingtargets: {
+	            	fi_FI: "Kartoituskohteet",
+	                sv_SE: "Insamlingar",
+	                en_US: "Mapping targets"
+	            },
+	            municipalitynames: {
+	            	fi_FI: "Kuntien nimet",
+	                sv_SE: "Kommun namn",
+	                en_US: "Municipality names"
+	            }
+	        },
+	        legend: {
+	        	notMapped: {
+	        		fi_FI: "Ei kartoitettu",
+	                sv_SE: "Okartlagt",
+	                en_US: "Not mapped"
+	        	},
+	        	onlyParish: {
+	        		fi_FI: "Vain seurakunta kartoitettu",
+	                sv_SE: "Bara församlingen kartlagd",
+	                en_US: "Only parish mapped"
+	        	},
+	        	others: {
+	        		fi_FI: "Laajempi kartoitus",
+	                sv_SE: "Bredare samling",
+	                en_US: "More extensive mapping"
+	        	},
+	        	books: {
+	        		fi_FI: "Kirjoja",
+	                sv_SE: "Böcker",
+	                en_US: "Books"
+	        	},
+	        	bookAmountDescription: {
+	        		fi_FI: "Kartalla näytetään kirjojen määrä kunnittain seuraavalla haulla:",
+	                sv_SE: "På kartan visas böckernas antal per kommun då följande sökning gjorts:",
+	                en_US: "The maps shows the number of books in each municipality as searched by:"
+	        	},
+	        	mappingTargetDescription: {
+	        		fi_FI: "Kartalla näytetään Suomessa säilyneiden, ennen vuotta 1850 painettujen kirjojen kokonaismäärä kunnittain ja kartoituskohteittain",
+	                sv_SE: "På kartan visas antalet bevarade böcker tryckta före 1850 per kommun och samlingstyp",
+	                en_US: "The map shows the number of books printed before 1850 in each municipality and according to type of mapping target"
+	        	}
+	        },
+	        query: {
+	        	search1: {
+	        		fi_FI: "1. sanahaku: ",
+	                sv_SE: "1:a sökord: ",
+	                en_US: "1st search word: "
+	        	},
+	        	filter1: {
+	        		fi_FI: "1. wildcard: ",
+	                sv_SE: "1:a wildcard: ",
+	                en_US: "1st wildcard: "
+	        	},
+	        	field1: {
+	        		fi_FI: "1. kenttä: ",
+	                sv_SE: "1:a fält: ",
+	                en_US: "1st field: "
+	        	},
+	        	search2: {
+	        		fi_FI: "2. sanahaku: ",
+	        		sv_SE: "2:a sökord: ",
+	                en_US: "2nd search word: "
+	        	},
+	        	filter2: {
+	        		fi_FI: "2. wildcard: ",
+	        		sv_SE: "2:a wildcard: ",
+	                en_US: "2nd wildcard: "
+	        	},
+	        	field2: {
+	        		fi_FI: "2. kenttä: ",
+	        		sv_SE: "2:a fält: ",
+	                en_US: "2nd field: "
+	        	},
+	        	municipality: {
+	        		fi_FI: "Kunta: ",
+	                sv_SE: "Kommun: ",
+	                en_US: "Municipality: "
+	        	},
+	        	province: {
+	        		fi_FI: "Maakunta: ",
+	                sv_SE: "Landskap: ",
+	                en_US: "Province: "
+	        	},
+	        	fromYear: {
+	        		fi_FI: "Vuodesta: ",
+	                sv_SE: "Från året: ",
+	                en_US: "From year: "
+	        	},
+	        	toYear: {
+	        		fi_FI: "Vuoteen: ",
+	                sv_SE: "Till året: ",
+	                en_US: "To year: "
+	        	},
+	        	mappingTarget: {
+	        		fi_FI: "Kartoituskohde: ",
+	                sv_SE: "Samling: ",
+	                en_US: "Mapping target: "
+	        	},
+	        	language: {
+	        		fi_FI: "Kieli: ",
+	                sv_SE: "Språk: ",
+	                en_US: "Language: "
+	        	},
+	        	fromLanguage: {
+	        		fi_FI: "Kielestä: ",
+	                sv_SE: "Från språk: ",
+	                en_US: "From language: "
+	        	},
+	        	publicationType: {
+	        		fi_FI: "Julkaisulaji: ",
+	                sv_SE: "Publikationstyp: ",
+	                en_US: "Publication type: "
+	        	},
+	        	collection: {
+	        		fi_FI: "Yksityiskirjasto: ",
+	                sv_SE: "Privat bibliotek: ",
+	                en_US: "Private library: "
+	        	}
+	        }
+	    }
+	
+	    var byString = function(o, s) {
+	        s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+	        s = s.replace(/^\./, '');           // strip a leading dot
+	        var a = s.split('.');
+	        for (var i = 0, n = a.length; i < n; ++i) {
+	            var k = a[i];
+	            if (k in o) {
+	                o = o[k];
+	            } else {
+	                return;
+	            }
+	        }
+	        return o;
+	    }
+	
+	    this.getVal = function(field) {
+	        return byString(translations, field + "." + this.language);
+	    }
+	}
+	
+	var FINNISH_LANGUAGE = "fi_FI";
+	var SWEDISH_LANGUAGE = "sv_SE"
+	var ENGLISH_LANGUAGE = "en_US";
+	var translator = new Translator(parent.window.locale);
+
+	var IPC_EVENT_CHANGE_MAP_FILL_TYPE = "changeMapFillType";
+	var SELECTED_TAB_FRONT = 'front';
+	var SELECTED_TAB_SEARCH = 'search';
+	var MAP_FILL_TYPE_BOOK_AMOUNT = 'bookAmount';
+	var MAP_FILL_TYPE_MAPPING_TARGET = 'mappingTarget';
+
+	var appData;
+	var queryStr;
+	var maxBookAmountInResults;
+	var resultAmt;
+	var selectedTab = parent.window.selectedTab || SELECTED_TAB_FRONT;
+	var mapFillType = parent.window.mapFillType || null;
+	if(mapFillType == null) {
+		if(selectedTab == SELECTED_TAB_FRONT) {
+			
+			mapFillType = MAP_FILL_TYPE_MAPPING_TARGET;
+		} else if(selectedTab == SELECTED_TAB_SEARCH) {
+			$('#legend-items').css("width", "35%");
+			$('#legend-description').css("width", "65%");
+			mapFillType = MAP_FILL_TYPE_BOOK_AMOUNT;
+		}	
+	}
+	
+	function resetMapView() {
+		
+	}
+	
+	function setAppData() {
+		if(parent !== null && parent.window !== null) {
+			if(selectedTab == SELECTED_TAB_FRONT) {
+				appData = JSON.parse(decodeURIComponent(escape(window.atob(parent.window.frontPageMunicipalities))));
+			} else if(selectedTab == SELECTED_TAB_SEARCH) {
+				maxBookAmountInResults= 0;
+				appData = JSON.parse(decodeURIComponent(escape(window.atob(parent.window.searchPageMunicipalities))));
+				$.each(appData, function(key, value) {
+					if(value.newMunicipalityTotalBookAmount > maxBookAmountInResults) {
+						maxBookAmountInResults = value.newMunicipalityTotalBookAmount;
+					}	
+				});
+				queryStr = appData["query"];
+			}
+			resultAmt = appData.newMunicipalityTotalAmount;
+		}
+	}
+	
+	var layerSwitcher = new ol.control.LayerSwitcher({
+        tipLabel: 'Toggle layers' // Optional label for button
+    });
+	
+	function flashLayerPanel(duration) {
+        var layerPanel = $('.layer-switcher .panel');
+        var layerSwitcherElem = $('.layer-switcher');
+        layerSwitcherElem.trigger('mouseover');
+        layerPanel.fadeOut(duration, function() {
+            layerPanel.removeAttr('style');
+            layerSwitcherElem.trigger('mouseout');
+        });
+    }
+	
+	var bounds = [61685.886, 6605839.312, 732907.822, 7776450.217];
+
+	/**
+	 * Elements that make up the popup.
+	 */
+	var container = document.getElementById('popup');
+	var content = document.getElementById('popup-content');
+	var closer = document.getElementById('popup-closer');
+
+	/**
+	 * Add a click handler to hide the popup.
+	 * @return {boolean} Don't follow the href.
+	 */
+	 
+	closer.onclick = function() {
+		 /*
+		if(selectedTab === SELECTED_TAB_SEARCH) {
+			fireLiferayIPCEvent("resetMapFilter");	
+		}*/
+		overlay.setPosition(undefined);
+		closer.blur();
+		return false;
+	};
+
+	/**
+	 * Create an overlay to anchor the popup to the map.
+	 */
+	var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */
+	({
+		element : container,
+		autoPan : true,
+		autoPanAnimation : {
+			duration : 250
+		}
+	}));
+	
+	var extent3067 = [-548576, 6291456, 1548576, 8388608];
+	var projection3067 = new ol.proj.Projection({
+        code: 'EPSG:3067',
+        extent: extent3067,
+        units: 'm'
+	});
+	ol.proj.addProjection(projection3067);
+	
+	var tileGrid = new ol.tilegrid.TileGrid({
+		extent: extent3067,
+		resolutions: [8192, 4096, 2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 0.5, 0.25]
+	});
+	
+	var attribution = new ol.Attribution({
+	  html: 'Tiles &copy; <a target="_blank" href="http://avaa.tdata.fi/openstreetmap">OpenStreetMap Finland / OKM AVAA</a>'
+	});
+	
+	var osmFinlandTileLayer = new ol.layer.Tile({
+		title: translator.getVal('map.basemap'),
+		source: new ol.source.TileWMS({
+	    	url: '//avaa.tdata.fi/geoserver/gwc/service/wms',
+	      	params: {'LAYERS': 'osm_finland:osm-finland', 'TILED':true, 'VERSION':'1.1.1'},
+	      	serverType: 'geoserver',
+	      	tileGrid: tileGrid,
+	      	projection: 'EPSG:3067',
+			attributions: [attribution],
+		})
+	});
+	
+	var municipalityNamesLayer = new ol.layer.Tile({
+		title: translator.getVal('map.municipalitynames'),
+		source: new ol.source.TileWMS({
+	    	url: '//avaa.tdata.fi/geoserver/gwc/service/wms',
+	      	params: {'LAYERS': 'osm_finland:places', 'TILED':true, 'VERSION':'1.1.1'},
+	      	serverType: 'geoserver',
+	      	tileGrid: tileGrid,
+	      	projection: 'EPSG:3067'
+		})
+	});
+	
+	// format used to parse WFS GetFeature responses
+	var geojsonFormat = new ol.format.GeoJSON();
+
+	var kuntaSrc = new ol.source.Vector({
+		loader : function(extent, resolution, projection) {
+			var url = '//avaa.tdata.fi/geoserver/kirjakartoitus/ows?service=WFS&'
+					+ 'version=2.0.0&request=GetFeature&typename=kirjakartoitus:kuntainfo&'
+					+ 'outputFormat=text/javascript&format_options=callback:loadKuntaFeatures';
+			$.ajax({
+				url : url,
+				dataType : 'jsonp',
+				jsonp : false
+			});
+		}
+	});
+	
+	var maakuntaSrc = new ol.source.Vector({
+		loader : function(extent, resolution, projection) {
+			var url = '//avaa.tdata.fi/geoserver/kirjakartoitus/ows?service=WFS&'
+					+ 'version=2.0.0&request=GetFeature&typeName=kirjakartoitus:maakuntainfo&'
+					+ 'outputFormat=text/javascript&format_options=callback:loadMaakuntaFeatures';
+			$.ajax({
+				url : url,
+				dataType : 'jsonp',
+				jsonp : false
+			});
+		}
+	});
+	
+	
+	
+	window.loadKuntaFeatures = function(response) {
+		kuntaSrc.addFeatures(geojsonFormat.readFeatures(response));
+	};
+	
+	window.loadMaakuntaFeatures = function(response) {
+		maakuntaSrc.addFeatures(geojsonFormat.readFeatures(response));
+	}
+	
+	var createFillStyle = function(r, g, b, opacity) {
+		var style = new ol.style.Style({
+			fill : new ol.style.Fill({
+				color : 'rgba(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')'
+			})
+		});	
+		return style;
+	}
+	
+	var createFillStyleWithBlueStroke = function(r, g, b) {
+		var style = new ol.style.Style({
+			fill : new ol.style.Fill({
+				color : 'rgba(' + r + ', ' + g + ', ' + b + ', 0.75)'
+			}),
+			stroke : new ol.style.Stroke({
+				color : 'rgba(0, 0, 255, 0.2)',
+				width : 1
+			})
+		});	
+		return style;
+	}
+	
+	var createFillStyleWithRedStroke = function(r, g, b) {
+		var style = new ol.style.Style({
+			fill : new ol.style.Fill({
+				color : 'rgba(' + r + ', ' + g + ', ' + b + ', 0.5)'
+			}),
+			stroke : new ol.style.Stroke({
+				color : 'rgba(255, 0, 0, 1.0)',
+				width : 1
+			})
+		});	
+		return style;
+	}
+	
+	var styleBlackDashedStroke = new ol.style.Style({
+		stroke : new ol.style.Stroke({
+			color : 'rgba(0, 0, 0, 1.0)',
+			width : 1/*,
+			lineDash: [15,15]*/
+		})
+	});
+
+	var lightFill = createFillStyle('240', '240', '240', 0.15);
+	var lightGreenFill = createFillStyle('220', '240', '220', 0.15);
+	var greenFillBlueStroke1 = createFillStyle('140', '210', '140', 0.8);
+	var greenFillBlueStroke2 = createFillStyle('100', '160', '100', 0.8);
+	var greenFillBlueStroke3 = createFillStyle('60', '110', '60', 0.8);
+	var greenFillBlueStroke4 = createFillStyle('20', '60', '20', 0.8);
+	var brightGreenFillRedStroke = createFillStyleWithRedStroke('0', '255', '0');
+	var darkBlueFillBlueStroke = createFillStyleWithBlueStroke('10', '27', '66');
+	var lightBlueFillBlueStroke = createFillStyleWithBlueStroke('209', '214', '228');
+	
+	var kunnat2014Layer = new ol.layer.Vector({
+		source : kuntaSrc,
+		style : function(feature, resolution) {
+			var capsKuntanimi = feature.get('capitalkuntanimi');
+			var bookAmt = 0;
+			var hasOnlySeurakuntaBooks = true;
+			if(capsKuntanimi !== undefined && appData[capsKuntanimi] !== undefined) {
+				bookAmt = appData[capsKuntanimi].newMunicipalityTotalBookAmount;
+				hasOnlySeurakuntaBooks = appData[capsKuntanimi].newMunicipalityHasOnlySeurakuntaBooks;
+			}
+			if(mapFillType == MAP_FILL_TYPE_MAPPING_TARGET) {
+				if(bookAmt > 0) {
+					if(hasOnlySeurakuntaBooks) {
+						return [ lightBlueFillBlueStroke ];
+					}
+					return [ darkBlueFillBlueStroke ];
+				}
+				return [ lightFill ];
+			} else if(mapFillType == MAP_FILL_TYPE_BOOK_AMOUNT) {
+				if(resultAmt == 1) {
+					if(bookAmt > 0) {
+						return [ brightGreenFillRedStroke ];
+					}
+					return [ lightGreenFill ];
+				} else {
+					if(bookAmt == 0) {
+						return [ lightGreenFill ];
+					} else {
+						if (bookAmt <= Math.ceil(maxBookAmountInResults/8))
+							return [ greenFillBlueStroke1 ];
+						if (bookAmt <= Math.ceil(maxBookAmountInResults/4))
+							return [ greenFillBlueStroke2 ];
+						if (bookAmt <= Math.ceil(maxBookAmountInResults/2))
+							return [ greenFillBlueStroke3 ];
+						if (bookAmt <= Math.ceil(maxBookAmountInResults))
+							return [ greenFillBlueStroke4 ];
+					}
+				}
+			}
+		}
+	});
+	
+	function setMapLegend() {
+		var legendContainer = $('#legend-container');
+		var items = $('<div>', {
+   			id: 'legend-items'
+   		});
+		var description = $('<div>', {
+   			id: 'legend-description'
+   		});
+		if(mapFillType == MAP_FILL_TYPE_MAPPING_TARGET) {
+			items.css("width", "55%");
+			description.css("width", "45%");
+			var item1 = createLegendItem(1, 'rgb(240,240,240)', translator.getVal("legend.notMapped"));
+			var item2 = createLegendItem(2, 'rgb(209,214,228)', translator.getVal("legend.onlyParish"));
+			var item3 = createLegendItem(3, 'rgb(10,27,66)', translator.getVal("legend.others"));
+			items.append(item1);
+			items.append(item2);
+			items.append(item3);
+			description.text(translator.getVal("legend.mappingTargetDescription"));
+		} else if(mapFillType == MAP_FILL_TYPE_BOOK_AMOUNT) {
+			if(resultAmt > 0 && maxBookAmountInResults > 0) {
+				if(resultAmt > 1) {
+					items.css("width", "35%");
+					description.css("width", "65%");
+					var item1 = createLegendItem(1, 'rgb(140,210,140)', translator.getVal("legend.books") + ' ≤ ' + Math.ceil(maxBookAmountInResults/8).toString());
+					var item2 = createLegendItem(2, 'rgb(100,160,100)', translator.getVal("legend.books") + ' ≤ ' + Math.ceil(maxBookAmountInResults/4).toString());
+					var item3 = createLegendItem(3, 'rgb(60,110,60)', translator.getVal("legend.books") + ' ≤ ' + Math.ceil(maxBookAmountInResults/2).toString());
+					var item4 = createLegendItem(4, 'rgb(20,60,20)', translator.getVal("legend.books") + ' ≤ ' + Math.ceil(maxBookAmountInResults).toString());
+					items.append(item1);
+					items.append(item2);
+					items.append(item3);
+					items.append(item4);
+				} else {
+					items.css("width", "0%");
+					description.css("width", "100%");
+				}
+				description.html(translator.getVal("legend.bookAmountDescription") + "<br><br>" + getFormattedSearchQuery(queryStr));
+			}
+		}
+		legendContainer.append(items);
+		legendContainer.append(description);
+	}
+	
+	function getFormattedSearchQuery(queryStr) {
+		var retVal = "";
+		var queryItems = queryStr.split("^^");
+		$.each(queryItems, function(idx, queryItem) {
+			var key = queryItem.split("=")[0];
+			var val = queryItem.split("=")[1];
+			
+			if(val == "null" || val == "-1" || val.indexOf(".null") > -1) {return true;}
+			
+			if(key == "searchStr1") {
+				retVal += translator.getVal("query.search1") + val;
+				retVal += "<br>";
+			} else if(key == "searchStr1WildcardFilter") {
+				retVal += translator.getVal("query.filter1") + val;
+				retVal += "<br>";
+			} else if(key == "searchStr1FieldFilter") {
+				retVal += translator.getVal("query.field1") + val;
+				retVal += "<br>";
+			} else if(key == "searchStr2") {
+				retVal += translator.getVal("query.search2") + val;
+				retVal += "<br>";
+			} else if(key == "searchStr2WildcardFilter") {
+				retVal += translator.getVal("query.filter2") + val;
+				retVal += "<br>";
+			} else if(key == "searchStr2FieldFilter") {
+				retVal += translator.getVal("query.field2") + val;
+				retVal += "<br>";
+			} else if(key == "municipality") {
+				retVal += translator.getVal("query.municipality") + val;
+				retVal += "<br>";
+			} else if(key == "provence") {
+				retVal += translator.getVal("query.province") + val;
+				retVal += "<br>";
+			} else if(key == "fromYear") {
+				retVal += translator.getVal("query.fromYear") + val;
+				retVal += "<br>";
+			} else if(key == "toYear") {
+				retVal += translator.getVal("query.toYear") + val;
+				retVal += "<br>";
+			} else if(key == "mappingTarget") {
+				retVal += translator.getVal("query.mappingTarget") + val;
+				retVal += "<br>";
+			} else if(key == "language") {
+				retVal += translator.getVal("query.language") + val;
+				retVal += "<br>";
+			} else if(key == "fromLanguage") {
+				retVal += translator.getVal("query.fromLanguage") + val;
+				retVal += "<br>";
+			} else if(key == "publicationType") {
+				retVal += translator.getVal("query.publicationType") + val;
+				retVal += "<br>";
+			} else if(key == "collection") {
+				retVal += translator.getVal("query.collection") + val;
+				retVal += "<br>";
+			}
+		});
+		return retVal;
+	}
+	
+	function createLegendItem(itemNo, bgcolorStr, textStr) {
+		var item = $('<div>', {
+   			id: 'legend-item' + itemNo,
+   			'class': 'legend-item'
+   		});
+		var itemText = $('<div>', {
+			id: 'legend-item' + itemNo + '-text',
+   			'class': 'legend-item-text'
+   		});
+		var itemColor = $('<div>', {
+			id: 'legend-item' + itemNo + '-color',
+     		'class': 'legend-item-color',
+     		'style': 'background-color: ' + bgcolorStr
+     	});
+		itemText.text(textStr);
+		item.append(itemText);
+		item.append(itemColor);
+		return item;
+	}
+	
+	var maakuntaLayer = new ol.layer.Vector({
+		title: translator.getVal("map.provence"),
+		source : maakuntaSrc,
+		style : function(feature, resolution) {
+			return [ styleBlackDashedStroke ];
+		}
+	});
+	
+	var map = new ol.Map({
+		overlays: [overlay],
+		pixelRatio: 1,
+		target: 'map',
+		layers: [osmFinlandTileLayer, maakuntaLayer, kunnat2014Layer, municipalityNamesLayer],
+		view: new ol.View({
+			center: [500000, 7000000],
+			zoom: 2.5,
+			projection: 'EPSG:3067'
+		})/*,
+		controls: ol.control.defaults().extend([new ol.control.FullScreen()])*/
+	});
+
+	map.on('singleclick', function(evt) {
+		var features = [];
+		map.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+			if(typeof layer.getProperties().title === 'undefined') {
+				features.push(feature);	
+			}
+		});
+		
+		if(features.length > 0) {
+			var ipcEventNamePrefix = null;
+			if(selectedTab === SELECTED_TAB_FRONT) {
+				ipcEventNamePrefix = "search";
+			} else if(selectedTab === SELECTED_TAB_SEARCH) {
+				ipcEventNamePrefix = "filter";
+			}
+			var infoText = '';
+			var kuntanimi = features[0].get('kuntanimi');
+			var capsKuntanimi = features[0].get('capitalkuntanimi');
+			if(appData[capsKuntanimi] !== undefined) {
+				var kuntaData = appData[capsKuntanimi];
+				infoText = "<a class='map-info municipality-link' onclick='fireLiferayIPCEvent(\"" + ipcEventNamePrefix + "Municipality\",\"" + capsKuntanimi + "\",null,\"true\"); event.returnValue=false;'>" + kuntanimi + " (2014)</a>: " + kuntaData.newMunicipalityTotalBookAmount + " kpl<br>";
+				infoText += "<hr/>";
+				$.each(kuntaData.originalMunicipalities, function(idx1, municipalityData) {
+					var originalMunicipalityName = municipalityData.originalMunicipalityName;
+					var originalMunicipalityTotalBookAmount = municipalityData.originalMunicipalityTotalBookAmount;
+					infoText += "<a class='map-info municipality-link' onclick='fireLiferayIPCEvent(\"" + ipcEventNamePrefix + "Municipality\",\"" + originalMunicipalityName + "\",null,\"false\"); event.returnValue=false;'>" + originalMunicipalityName.substr(0,1).toUpperCase() + originalMunicipalityName.substr(1).toLowerCase() + "</a>: " + originalMunicipalityTotalBookAmount + "<br>";
+					//infoText += "<h4>" + translator.getVal("map.mappingtargets") + "</h4>";
+					infoText += "<ul>";
+					$.each(municipalityData.mappingTargets, function(idx2, mappingTarget) {
+						infoText += "<li>"
+			        	infoText += "<a class='map-info mapping-target-link' onclick='fireLiferayIPCEvent(\"" + ipcEventNamePrefix + "MunicipalityMappingTargets\",\"" + originalMunicipalityName + "\",\"" + mappingTarget.mappingTargetKey + "\",\"false\"); event.returnValue=false;'>" +  mappingTarget.mappingTargetName + "</a>: " + mappingTarget.mappingTargetAmount + "<br>";
+			        	infoText += "</li>";
+			        });
+					infoText += "</ul>";
+				});
+			} else {
+				infoText = kuntanimi + ": 0 kpl";
+			}
+			content.innerHTML = infoText;
+			overlay.setPosition(evt.coordinate);
+		}
+	});
+	
+	function fireLiferayIPCEvent(ipcEvent, municipalityItem, mappingTargetItem, isNewMunicipality) {
+		if(municipalityItem != null) {
+			var data = "municipality:" + municipalityItem;
+			if(mappingTargetItem != null) {
+				data += ",mappingTarget:" + mappingTargetItem;
+			}
+			data += ",useNewMunicipality:" + isNewMunicipality;
+			parent.Liferay.fire(ipcEvent, data);	
+		} else {
+			parent.Liferay.fire(ipcEvent);
+		}
+		
+	}
+	
+	parent.Liferay.on(IPC_EVENT_CHANGE_MAP_FILL_TYPE, function(event, data) {
+		if(parent !== null && parent.window !== null) {
+			mapFillType = data;
+			setAppData();			
+		}
+	});
+	
+	map.getView().fit(bounds, map.getSize());
+	map.addControl(layerSwitcher);
+	flashLayerPanel(2000);
+	setAppData();
+	setMapLegend();
+	
+</script>

@@ -1,0 +1,23 @@
+khl-webapps used by AVAA open data publishing platform http://avaa.tdata.fi
+
+Contributors:
+Tuija Laine, professor of church history, University of Helsinki, project coordination and content administration
+Anna Ruokamo, Bachelor of Theology, content storage
+Timo Salmela, Master of Theology, original database and user interface development, content administration
+Timo Valtonen, Master of Social Sciences, digitization
+AVAA team, CSC: application development
+
+Copyright (C) 2013-2015  Opetus- ja kulttuuriministeriö (Finnish Ministry of Education and Culture)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.

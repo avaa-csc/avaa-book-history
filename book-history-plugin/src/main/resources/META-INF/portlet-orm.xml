@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.JulkaisulajiinfoModelImpl">
+		<attributes>
+			<id name="julklajiid" />
+			<basic name="julklaji" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.KartoituskohdeModelImpl">
+		<attributes>
+			<id name="kohdeid" />
+			<basic name="kartkohde" />
+			<basic name="kpl" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.KielestaModelImpl">
+		<attributes>
+			<id name="kieliid" />
+			<basic name="kieli" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.KieliinfoModelImpl">
+		<attributes>
+			<id name="kieliid" />
+			<basic name="kieli" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.KuntainfoModelImpl">
+		<attributes>
+			<id name="kuntaid" />
+			<basic name="capitalkuntanimi" />
+			<basic name="kpl" />
+			<basic name="kuntanimi" />
+			<basic name="maakuntaid" />
+			<basic name="kuntano" />
+			<basic name="kuntanimi_2014" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.KuntoluokitusModelImpl">
+		<attributes>
+			<id name="kuntoid" />
+			<basic name="kunto" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.MaakuntainfoModelImpl">
+		<attributes>
+			<id name="maakuntaid" />
+			<basic name="maakunta" />
+			<basic name="kpl" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.PuuteModelImpl">
+		<attributes>
+			<id name="puuteid" />
+			<basic name="puutenimi" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.SidottuModelImpl">
+		<attributes>
+			<id name="sidontaid" />
+			<basic name="sidonta" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.TeospkModelImpl">
+		<attributes>
+			<id name="teospkid" />
+			<basic name="teospknimi" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.VanhatkirjatModelImpl">
+		<attributes>
+			<id name="vkid" />
+			<basic name="kuntaid" />
+			<basic name="maakuntaid" />
+			<basic name="lomakenum" />
+			<basic name="paivays">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="kartkohde" />
+			<basic name="tekija" />
+			<basic name="teoknimi" />
+			<basic name="painovuosi" />
+			<basic name="painopaikka" />
+			<basic name="kirjapaino" />
+			<basic name="painosmerk" />
+			<basic name="imprimatur" />
+			<basic name="kuvitus" />
+			<basic name="kartat" />
+			<basic name="liitteita" />
+			<basic name="nimikirj" />
+			<basic name="sinetti" />
+			<basic name="leima" />
+			<basic name="exlibris" />
+			<basic name="hintamerk" />
+			<basic name="omiste" />
+			<basic name="reunamerk" />
+			<basic name="lisatieto" />
+			<basic name="lahosoite" />
+			<basic name="lahemail" />
+			<basic name="status" />
+			<basic name="kieliid" />
+			<basic name="kielestaid" />
+			<basic name="julklajiid" />
+			<basic name="kuntoid" />
+			<basic name="puuteid" />
+			<basic name="teospkid" />
+			<basic name="sidonta" />
+			<basic name="kokoelma" />
+			<basic name="poistettu">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="muokattu">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="fi.csc.avaa.khl.db.model.impl.JulkaisulajiinfoImpl" name="Julkaisulajiinfo">
+		<table name="julklajiinfo" />
+		<attributes />
+	</entity>
+	<entity class="fi.csc.avaa.khl.db.model.impl.KartoituskohdeImpl" name="Kartoituskohde">
+		<table name="kartoituskohde" />
+		<attributes />
+	</entity>
+	<entity class="fi.csc.avaa.khl.db.model.impl.KielestaImpl" name="Kielesta">
+		<table name="kielesta" />
+		<attributes />
+	</entity>
+	<entity class="fi.csc.avaa.khl.db.model.impl.KieliinfoImpl" name="Kieliinfo">
+		<table name="kieliinfo" />
+		<attributes />
+	</entity>
+	<entity class="fi.csc.avaa.khl.db.model.impl.KuntainfoImpl" name="Kuntainfo">
+		<table name="kuntainfo" />
+		<attributes />
+	</entity>
+	<entity class="fi.csc.avaa.khl.db.model.impl.KuntoluokitusImpl" name="Kuntoluokitus">
+		<table name="kuntoluokitus" />
+		<attributes />
+	</entity>
+	<entity class="fi.csc.avaa.khl.db.model.impl.MaakuntainfoImpl" name="Maakuntainfo">
+		<table name="maakuntainfo" />
+		<attributes />
+	</entity>
+	<entity class="fi.csc.avaa.khl.db.model.impl.PuuteImpl" name="Puute">
+		<table name="puute" />
+		<attributes />
+	</entity>
+	<entity class="fi.csc.avaa.khl.db.model.impl.SidottuImpl" name="Sidottu">
+		<table name="sidottu" />
+		<attributes />
+	</entity>
+	<entity class="fi.csc.avaa.khl.db.model.impl.TeospkImpl" name="Teospk">
+		<table name="teospk" />
+		<attributes />
+	</entity>
+	<entity class="fi.csc.avaa.khl.db.model.impl.VanhatkirjatImpl" name="Vanhatkirjat">
+		<table name="vanhatkirjat" />
+		<attributes />
+	</entity>
+</entity-mappings>

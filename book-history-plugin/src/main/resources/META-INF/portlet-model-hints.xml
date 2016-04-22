@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="fi.csc.avaa.khl.db.model.Julkaisulajiinfo">
+		<field name="julklajiid" type="int" />
+		<field name="julklaji" type="String" />
+	</model>
+	<model name="fi.csc.avaa.khl.db.model.Kartoituskohde">
+		<field name="kohdeid" type="int" />
+		<field name="kartkohde" type="String" />
+		<field name="kpl" type="int" />
+	</model>
+	<model name="fi.csc.avaa.khl.db.model.Kielesta">
+		<field name="kieliid" type="int" />
+		<field name="kieli" type="String" />
+	</model>
+	<model name="fi.csc.avaa.khl.db.model.Kieliinfo">
+		<field name="kieliid" type="int" />
+		<field name="kieli" type="String" />
+	</model>
+	<model name="fi.csc.avaa.khl.db.model.Kuntainfo">
+		<field name="kuntaid" type="int" />
+		<field name="capitalkuntanimi" type="String" />
+		<field name="kpl" type="int" />
+		<field name="kuntanimi" type="String" />
+		<field name="maakuntaid" type="int" />
+		<field name="kuntano" type="int" />
+		<field name="kuntanimi_2014" type="String" />
+	</model>
+	<model name="fi.csc.avaa.khl.db.model.Kuntoluokitus">
+		<field name="kuntoid" type="int" />
+		<field name="kunto" type="String" />
+	</model>
+	<model name="fi.csc.avaa.khl.db.model.Maakuntainfo">
+		<field name="maakuntaid" type="int" />
+		<field name="maakunta" type="String" />
+		<field name="kpl" type="int" />
+	</model>
+	<model name="fi.csc.avaa.khl.db.model.Puute">
+		<field name="puuteid" type="int" />
+		<field name="puutenimi" type="String" />
+	</model>
+	<model name="fi.csc.avaa.khl.db.model.Sidottu">
+		<field name="sidontaid" type="int" />
+		<field name="sidonta" type="String" />
+	</model>
+	<model name="fi.csc.avaa.khl.db.model.Teospk">
+		<field name="teospkid" type="int" />
+		<field name="teospknimi" type="String" />
+	</model>
+	<model name="fi.csc.avaa.khl.db.model.Vanhatkirjat">
+		<field name="vkid" type="int" />
+		<field name="kuntaid" type="int" />
+		<field name="maakuntaid" type="int" />
+		<field name="lomakenum" type="int" />
+		<field name="paivays" type="Date" />
+		<field name="kartkohde" type="int" />
+		<field name="tekija" type="String" />
+		<field name="teoknimi" type="String" />
+		<field name="painovuosi" type="int" />
+		<field name="painopaikka" type="String" />
+		<field name="kirjapaino" type="String" />
+		<field name="painosmerk" type="int" />
+		<field name="imprimatur" type="int" />
+		<field name="kuvitus" type="int" />
+		<field name="kartat" type="int" />
+		<field name="liitteita" type="int" />
+		<field name="nimikirj" type="String" />
+		<field name="sinetti" type="int" />
+		<field name="leima" type="int" />
+		<field name="exlibris" type="int" />
+		<field name="hintamerk" type="int" />
+		<field name="omiste" type="String" />
+		<field name="reunamerk" type="String" />
+		<field name="lisatieto" type="String" />
+		<field name="lahosoite" type="String" />
+		<field name="lahemail" type="String" />
+		<field name="status" type="int" />
+		<field name="kieliid" type="int" />
+		<field name="kielestaid" type="int" />
+		<field name="julklajiid" type="int" />
+		<field name="kuntoid" type="int" />
+		<field name="puuteid" type="int" />
+		<field name="teospkid" type="int" />
+		<field name="sidonta" type="int" />
+		<field name="kokoelma" type="String" />
+		<field name="poistettu" type="Date" />
+		<field name="muokattu" type="Date" />
+	</model>
+</model-hints>

@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="fi.csc.avaa.khl.db.model.Julkaisulajiinfo" />
+	<import class="fi.csc.avaa.khl.db.model.Kartoituskohde" />
+	<import class="fi.csc.avaa.khl.db.model.Kielesta" />
+	<import class="fi.csc.avaa.khl.db.model.Kieliinfo" />
+	<import class="fi.csc.avaa.khl.db.model.Kuntainfo" />
+	<import class="fi.csc.avaa.khl.db.model.Kuntoluokitus" />
+	<import class="fi.csc.avaa.khl.db.model.Maakuntainfo" />
+	<import class="fi.csc.avaa.khl.db.model.Puute" />
+	<import class="fi.csc.avaa.khl.db.model.Sidottu" />
+	<import class="fi.csc.avaa.khl.db.model.Teospk" />
+	<import class="fi.csc.avaa.khl.db.model.Vanhatkirjat" />
+	<class name="fi.csc.avaa.khl.db.model.impl.JulkaisulajiinfoImpl" table="julklajiinfo">
+		<cache usage="read-write" />
+		<id name="julklajiid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="julklaji" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="fi.csc.avaa.khl.db.model.impl.KartoituskohdeImpl" table="kartoituskohde">
+		<cache usage="read-write" />
+		<id name="kohdeid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="kartkohde" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="kpl" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+	<class name="fi.csc.avaa.khl.db.model.impl.KielestaImpl" table="kielesta">
+		<cache usage="read-write" />
+		<id name="kieliid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="kieli" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="fi.csc.avaa.khl.db.model.impl.KieliinfoImpl" table="kieliinfo">
+		<cache usage="read-write" />
+		<id name="kieliid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="kieli" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="fi.csc.avaa.khl.db.model.impl.KuntainfoImpl" table="kuntainfo">
+		<cache usage="read-write" />
+		<id name="kuntaid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="capitalkuntanimi" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="kpl" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="kuntanimi" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="maakuntaid" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="kuntano" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="kuntanimi_2014" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="fi.csc.avaa.khl.db.model.impl.KuntoluokitusImpl" table="kuntoluokitus">
+		<cache usage="read-write" />
+		<id name="kuntoid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="kunto" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="fi.csc.avaa.khl.db.model.impl.MaakuntainfoImpl" table="maakuntainfo">
+		<cache usage="read-write" />
+		<id name="maakuntaid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="maakunta" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="kpl" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+	<class name="fi.csc.avaa.khl.db.model.impl.PuuteImpl" table="puute">
+		<cache usage="read-write" />
+		<id name="puuteid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="puutenimi" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="fi.csc.avaa.khl.db.model.impl.SidottuImpl" table="sidottu">
+		<cache usage="read-write" />
+		<id name="sidontaid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="sidonta" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="fi.csc.avaa.khl.db.model.impl.TeospkImpl" table="teospk">
+		<cache usage="read-write" />
+		<id name="teospkid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="teospknimi" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="fi.csc.avaa.khl.db.model.impl.VanhatkirjatImpl" table="vanhatkirjat">
+		<cache usage="read-write" />
+		<id name="vkid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="kuntaid" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="maakuntaid" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="lomakenum" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="paivays" type="org.hibernate.type.TimestampType" />
+		<property name="kartkohde" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="tekija" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="teoknimi" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="painovuosi" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="painopaikka" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="kirjapaino" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="painosmerk" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="imprimatur" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="kuvitus" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="kartat" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="liitteita" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="nimikirj" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="sinetti" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="leima" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="exlibris" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="hintamerk" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="omiste" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="reunamerk" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="lisatieto" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="lahosoite" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="lahemail" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="kieliid" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="kielestaid" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="julklajiid" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="kuntoid" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="puuteid" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="teospkid" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="sidonta" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="kokoelma" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="poistettu" type="org.hibernate.type.TimestampType" />
+		<property name="muokattu" type="org.hibernate.type.TimestampType" />
+	</class>
+</hibernate-mapping>
