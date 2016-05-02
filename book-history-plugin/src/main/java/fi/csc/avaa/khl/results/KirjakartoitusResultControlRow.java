@@ -5,11 +5,14 @@ package fi.csc.avaa.khl.results;
 
 import java.util.Collection;
 
+import com.vaadin.server.FontAwesome;
+
 import fi.csc.avaa.khl.common.CompleteVanhatkirjat;
 import fi.csc.avaa.khl.common.Const;
 import fi.csc.avaa.tools.search.SearchBean;
 import fi.csc.avaa.tools.search.result.ResultControlRow;
 import fi.csc.avaa.tools.vaadin.language.Translator;
+import fi.csc.avaa.vaadin.tools.VaadinTools;
 
 /**
  * @author jmlehtin
@@ -20,7 +23,10 @@ public class KirjakartoitusResultControlRow extends ResultControlRow<CompleteVan
 	private static final long serialVersionUID = 1L;
 
 	public KirjakartoitusResultControlRow(Translator translator) {
-		super(translator, true, true, true);
+		super(	translator, 
+				VaadinTools.createButton(translator.localize("Application.Print"), FontAwesome.PRINT, null, "print-all-btn"), 
+				VaadinTools.createButton(translator.localize("Application.Csv"), FontAwesome.DOWNLOAD, null, "download-csv-btn"),
+				true);
 	}
 
 	@Override
