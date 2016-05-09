@@ -141,4 +141,7 @@
         	<finder-column name="teospknimi"/>
         </finder>
 	</entity>
+	<entity remote-service="true" name="BookHistoryAPI">
+		<column name="name" type="String" primary="true"></column>
+	</entity>
 </service-builder>

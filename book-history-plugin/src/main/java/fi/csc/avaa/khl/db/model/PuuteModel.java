@@ -109,19 +109,19 @@ public interface PuuteModel extends BaseModel<Puute> {
     public Object clone();
 
     @Override
-    public int compareTo(Puute puute);
+    public int compareTo(fi.csc.avaa.khl.db.model.Puute puute);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Puute> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Puute> toCacheModel();
 
     @Override
-    public Puute toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Puute toEscapedModel();
 
     @Override
-    public Puute toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Puute toUnescapedModel();
 
     @Override
     public String toString();

@@ -7,6 +7,14 @@
 			<access>PROPERTY</access>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
+	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.BookHistoryAPIModelImpl">
+		<attributes>
+			<id name="name" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="fi.csc.avaa.khl.db.model.impl.JulkaisulajiinfoModelImpl">
 		<attributes>
 			<id name="julklajiid" />
@@ -154,6 +162,10 @@
 			<transient name="primaryKeyObj" />
 		</attributes>
 	</mapped-superclass>
+	<entity class="fi.csc.avaa.khl.db.model.impl.BookHistoryAPIImpl" name="BookHistoryAPI">
+		<table name="khl_BookHistoryAPI" />
+		<attributes />
+	</entity>
 	<entity class="fi.csc.avaa.khl.db.model.impl.JulkaisulajiinfoImpl" name="Julkaisulajiinfo">
 		<table name="julklajiinfo" />
 		<attributes />

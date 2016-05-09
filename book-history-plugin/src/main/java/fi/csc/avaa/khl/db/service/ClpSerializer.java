@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 
+import fi.csc.avaa.khl.db.model.BookHistoryAPIClp;
 import fi.csc.avaa.khl.db.model.JulkaisulajiinfoClp;
 import fi.csc.avaa.khl.db.model.KartoituskohdeClp;
 import fi.csc.avaa.khl.db.model.KielestaClp;
@@ -98,6 +99,10 @@ public class ClpSerializer {
 
         String oldModelClassName = oldModelClass.getName();
 
+        if (oldModelClassName.equals(BookHistoryAPIClp.class.getName())) {
+            return translateInputBookHistoryAPI(oldModel);
+        }
+
         if (oldModelClassName.equals(JulkaisulajiinfoClp.class.getName())) {
             return translateInputJulkaisulajiinfo(oldModel);
         }
@@ -155,6 +160,16 @@ public class ClpSerializer {
         }
 
         return newList;
+    }
+
+    public static Object translateInputBookHistoryAPI(BaseModel<?> oldModel) {
+        BookHistoryAPIClp oldClpModel = (BookHistoryAPIClp) oldModel;
+
+        BaseModel<?> newModel = oldClpModel.getBookHistoryAPIRemoteModel();
+
+        newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+        return newModel;
     }
 
     public static Object translateInputJulkaisulajiinfo(BaseModel<?> oldModel) {
@@ -281,6 +296,41 @@ public class ClpSerializer {
         Class<?> oldModelClass = oldModel.getClass();
 
         String oldModelClassName = oldModelClass.getName();
+
+        if (oldModelClassName.equals(
+                    "fi.csc.avaa.khl.db.model.impl.BookHistoryAPIImpl")) {
+            return translateOutputBookHistoryAPI(oldModel);
+        } else if (oldModelClassName.endsWith("Clp")) {
+            try {
+                ClassLoader classLoader = ClpSerializer.class.getClassLoader();
+
+                Method getClpSerializerClassMethod = oldModelClass.getMethod(
+                        "getClpSerializerClass");
+
+                Class<?> oldClpSerializerClass = (Class<?>) getClpSerializerClassMethod.invoke(oldModel);
+
+                Class<?> newClpSerializerClass = classLoader.loadClass(oldClpSerializerClass.getName());
+
+                Method translateOutputMethod = newClpSerializerClass.getMethod("translateOutput",
+                        BaseModel.class);
+
+                Class<?> oldModelModelClass = oldModel.getModelClass();
+
+                Method getRemoteModelMethod = oldModelClass.getMethod("get" +
+                        oldModelModelClass.getSimpleName() + "RemoteModel");
+
+                Object oldRemoteModel = getRemoteModelMethod.invoke(oldModel);
+
+                BaseModel<?> newModel = (BaseModel<?>) translateOutputMethod.invoke(null,
+                        oldRemoteModel);
+
+                return newModel;
+            } catch (Throwable t) {
+                if (_log.isInfoEnabled()) {
+                    _log.info("Unable to translate " + oldModelClassName, t);
+                }
+            }
+        }
 
         if (oldModelClassName.equals(
                     "fi.csc.avaa.khl.db.model.impl.JulkaisulajiinfoImpl")) {
@@ -741,6 +791,10 @@ public class ClpSerializer {
             return new SystemException();
         }
 
+        if (className.equals("fi.csc.avaa.khl.db.NoSuchBookHistoryAPIException")) {
+            return new fi.csc.avaa.khl.db.NoSuchBookHistoryAPIException();
+        }
+
         if (className.equals(
                     "fi.csc.avaa.khl.db.NoSuchJulkaisulajiinfoException")) {
             return new fi.csc.avaa.khl.db.NoSuchJulkaisulajiinfoException();
@@ -787,6 +841,16 @@ public class ClpSerializer {
         }
 
         return throwable;
+    }
+
+    public static Object translateOutputBookHistoryAPI(BaseModel<?> oldModel) {
+        BookHistoryAPIClp newModel = new BookHistoryAPIClp();
+
+        newModel.setModelAttributes(oldModel.getModelAttributes());
+
+        newModel.setBookHistoryAPIRemoteModel(oldModel);
+
+        return newModel;
     }
 
     public static Object translateOutputJulkaisulajiinfo(BaseModel<?> oldModel) {

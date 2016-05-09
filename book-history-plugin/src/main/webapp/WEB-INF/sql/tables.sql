@@ -1,3 +1,7 @@
+create table khl_BookHistoryAPI (
+	name VARCHAR(75) not null primary key
+);
+
 create table khl_Kartoituskohde (
 	kohdeid LONG not null,
 	vkid INTEGER not null,

@@ -41,14 +41,14 @@ public class VanhatkirjatLocalServiceClpInvoker {
     private String[] _methodParameterTypes14;
     private String _methodName15;
     private String[] _methodParameterTypes15;
-    private String _methodName96;
-    private String[] _methodParameterTypes96;
-    private String _methodName97;
-    private String[] _methodParameterTypes97;
-    private String _methodName102;
-    private String[] _methodParameterTypes102;
-    private String _methodName103;
-    private String[] _methodParameterTypes103;
+    private String _methodName100;
+    private String[] _methodParameterTypes100;
+    private String _methodName101;
+    private String[] _methodParameterTypes101;
+    private String _methodName106;
+    private String[] _methodParameterTypes106;
+    private String _methodName107;
+    private String[] _methodParameterTypes107;
 
     public VanhatkirjatLocalServiceClpInvoker() {
         _methodName0 = "addVanhatkirjat";
@@ -133,21 +133,21 @@ public class VanhatkirjatLocalServiceClpInvoker {
                 "fi.csc.avaa.khl.db.model.Vanhatkirjat"
             };
 
-        _methodName96 = "getBeanIdentifier";
+        _methodName100 = "getBeanIdentifier";
 
-        _methodParameterTypes96 = new String[] {  };
+        _methodParameterTypes100 = new String[] {  };
 
-        _methodName97 = "setBeanIdentifier";
+        _methodName101 = "setBeanIdentifier";
 
-        _methodParameterTypes97 = new String[] { "java.lang.String" };
+        _methodParameterTypes101 = new String[] { "java.lang.String" };
 
-        _methodName102 = "findAllByPublishStatus";
+        _methodName106 = "findAllByPublishStatus";
 
-        _methodParameterTypes102 = new String[] { "int" };
+        _methodParameterTypes106 = new String[] { "int" };
 
-        _methodName103 = "deleteAllVanhatkirjat";
+        _methodName107 = "deleteAllVanhatkirjat";
 
-        _methodParameterTypes103 = new String[] {  };
+        _methodParameterTypes107 = new String[] {  };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -239,25 +239,25 @@ public class VanhatkirjatLocalServiceClpInvoker {
             return VanhatkirjatLocalServiceUtil.updateVanhatkirjat((fi.csc.avaa.khl.db.model.Vanhatkirjat) arguments[0]);
         }
 
-        if (_methodName96.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+        if (_methodName100.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes100, parameterTypes)) {
             return VanhatkirjatLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName97.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
+        if (_methodName101.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes101, parameterTypes)) {
             VanhatkirjatLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName102.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes102, parameterTypes)) {
+        if (_methodName106.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes106, parameterTypes)) {
             return VanhatkirjatLocalServiceUtil.findAllByPublishStatus(((Integer) arguments[0]).intValue());
         }
 
-        if (_methodName103.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes103, parameterTypes)) {
+        if (_methodName107.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes107, parameterTypes)) {
             return VanhatkirjatLocalServiceUtil.deleteAllVanhatkirjat();
         }
 

@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 
 <model-hints>
+	<model name="fi.csc.avaa.khl.db.model.BookHistoryAPI">
+		<field name="name" type="String" />
+	</model>
 	<model name="fi.csc.avaa.khl.db.model.Julkaisulajiinfo">
 		<field name="julklajiid" type="int" />
 		<field name="julklaji" type="String" />

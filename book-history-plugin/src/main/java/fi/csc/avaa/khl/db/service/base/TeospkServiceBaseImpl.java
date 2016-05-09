@@ -10,6 +10,7 @@ import com.liferay.portal.service.persistence.UserPersistence;
 
 import fi.csc.avaa.khl.db.model.Teospk;
 import fi.csc.avaa.khl.db.service.TeospkService;
+import fi.csc.avaa.khl.db.service.persistence.BookHistoryAPIPersistence;
 import fi.csc.avaa.khl.db.service.persistence.JulkaisulajiinfoPersistence;
 import fi.csc.avaa.khl.db.service.persistence.KartoituskohdePersistence;
 import fi.csc.avaa.khl.db.service.persistence.KielestaPersistence;
@@ -39,6 +40,10 @@ import javax.sql.DataSource;
  */
 public abstract class TeospkServiceBaseImpl extends BaseServiceImpl
     implements TeospkService, IdentifiableBean {
+    @BeanReference(type = fi.csc.avaa.khl.db.service.BookHistoryAPIService.class)
+    protected fi.csc.avaa.khl.db.service.BookHistoryAPIService bookHistoryAPIService;
+    @BeanReference(type = BookHistoryAPIPersistence.class)
+    protected BookHistoryAPIPersistence bookHistoryAPIPersistence;
     @BeanReference(type = fi.csc.avaa.khl.db.service.JulkaisulajiinfoLocalService.class)
     protected fi.csc.avaa.khl.db.service.JulkaisulajiinfoLocalService julkaisulajiinfoLocalService;
     @BeanReference(type = fi.csc.avaa.khl.db.service.JulkaisulajiinfoService.class)
@@ -126,6 +131,44 @@ public abstract class TeospkServiceBaseImpl extends BaseServiceImpl
      *
      * Never modify or reference this class directly. Always use {@link fi.csc.avaa.khl.db.service.TeospkServiceUtil} to access the teospk remote service.
      */
+
+    /**
+     * Returns the book history a p i remote service.
+     *
+     * @return the book history a p i remote service
+     */
+    public fi.csc.avaa.khl.db.service.BookHistoryAPIService getBookHistoryAPIService() {
+        return bookHistoryAPIService;
+    }
+
+    /**
+     * Sets the book history a p i remote service.
+     *
+     * @param bookHistoryAPIService the book history a p i remote service
+     */
+    public void setBookHistoryAPIService(
+        fi.csc.avaa.khl.db.service.BookHistoryAPIService bookHistoryAPIService) {
+        this.bookHistoryAPIService = bookHistoryAPIService;
+    }
+
+    /**
+     * Returns the book history a p i persistence.
+     *
+     * @return the book history a p i persistence
+     */
+    public BookHistoryAPIPersistence getBookHistoryAPIPersistence() {
+        return bookHistoryAPIPersistence;
+    }
+
+    /**
+     * Sets the book history a p i persistence.
+     *
+     * @param bookHistoryAPIPersistence the book history a p i persistence
+     */
+    public void setBookHistoryAPIPersistence(
+        BookHistoryAPIPersistence bookHistoryAPIPersistence) {
+        this.bookHistoryAPIPersistence = bookHistoryAPIPersistence;
+    }
 
     /**
      * Returns the julkaisulajiinfo local service.

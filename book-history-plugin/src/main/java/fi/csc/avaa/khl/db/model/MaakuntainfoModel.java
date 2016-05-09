@@ -123,19 +123,19 @@ public interface MaakuntainfoModel extends BaseModel<Maakuntainfo> {
     public Object clone();
 
     @Override
-    public int compareTo(Maakuntainfo maakuntainfo);
+    public int compareTo(fi.csc.avaa.khl.db.model.Maakuntainfo maakuntainfo);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Maakuntainfo> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Maakuntainfo> toCacheModel();
 
     @Override
-    public Maakuntainfo toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Maakuntainfo toEscapedModel();
 
     @Override
-    public Maakuntainfo toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Maakuntainfo toUnescapedModel();
 
     @Override
     public String toString();
