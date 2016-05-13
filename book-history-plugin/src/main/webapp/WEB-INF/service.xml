@@ -46,6 +46,12 @@
         <finder name="PublishStatus" return-type="Collection">
         	<finder-column name="status"/>
         </finder>
+		<finder name="Title" return-type="Collection">
+			<finder-column name="teoknimi"/>
+		</finder>
+		<finder name="Author" return-type="Collection">
+			<finder-column name="tekija"/>
+		</finder>
 	</entity>
 	<entity local-service="true" remote-service="true" data-source="khl"
 		session-factory="khlSessionFactory" cache-enabled="true" table="kuntainfo"

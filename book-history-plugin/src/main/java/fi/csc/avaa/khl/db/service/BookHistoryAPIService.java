@@ -10,6 +10,8 @@ import com.liferay.portal.security.ac.AccessControlled;
 import com.liferay.portal.service.BaseService;
 import com.liferay.portal.service.InvokableService;
 
+import fi.csc.avaa.khl.common.DBTools.*;
+
 /**
  * Provides the remote service interface for BookHistoryAPI. Methods of this
  * service are expected to have security checks based on the propagated JAAS
@@ -53,7 +55,27 @@ public interface BookHistoryAPIService extends BaseService, InvokableService {
         throws java.lang.Throwable;
 
     @com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
-    @com.liferay.portal.kernel.jsonwebservice.JSONWebService(value = "getHelloWorld")
+    @com.liferay.portal.kernel.jsonwebservice.JSONWebService(value = "getBooksByTitleAuthorPublishedYears")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public java.lang.String getHelloWorld();
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitleAuthorFromYearPublisedToYearPublished(
+        java.lang.String bookTitle, java.lang.String bookAuthor,
+        int fromYearPublished, int toYearPublished);
+
+    @com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
+    @com.liferay.portal.kernel.jsonwebservice.JSONWebService(value = "getBooksByTitle")
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitle(
+        java.lang.String bookTitle);
+
+    @com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
+    @com.liferay.portal.kernel.jsonwebservice.JSONWebService(value = "getBooksByAuthor")
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByAuthor(
+        java.lang.String bookAuthor);
+
+    @com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
+    @com.liferay.portal.kernel.jsonwebservice.JSONWebService(value = "getBooksByPublishedYears")
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByFromYearPublisedToYearPublished(
+        int fromYearPublished, int toYearPublished);
 }

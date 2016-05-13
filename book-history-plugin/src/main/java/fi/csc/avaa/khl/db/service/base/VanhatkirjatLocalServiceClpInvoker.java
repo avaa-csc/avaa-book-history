@@ -49,6 +49,10 @@ public class VanhatkirjatLocalServiceClpInvoker {
     private String[] _methodParameterTypes106;
     private String _methodName107;
     private String[] _methodParameterTypes107;
+    private String _methodName108;
+    private String[] _methodParameterTypes108;
+    private String _methodName109;
+    private String[] _methodParameterTypes109;
 
     public VanhatkirjatLocalServiceClpInvoker() {
         _methodName0 = "addVanhatkirjat";
@@ -141,13 +145,21 @@ public class VanhatkirjatLocalServiceClpInvoker {
 
         _methodParameterTypes101 = new String[] { "java.lang.String" };
 
-        _methodName106 = "findAllByPublishStatus";
+        _methodName106 = "findAllByTitle";
 
-        _methodParameterTypes106 = new String[] { "int" };
+        _methodParameterTypes106 = new String[] { "java.lang.String" };
 
-        _methodName107 = "deleteAllVanhatkirjat";
+        _methodName107 = "findAllByAuthor";
 
-        _methodParameterTypes107 = new String[] {  };
+        _methodParameterTypes107 = new String[] { "java.lang.String" };
+
+        _methodName108 = "findAllByPublishStatus";
+
+        _methodParameterTypes108 = new String[] { "int" };
+
+        _methodName109 = "deleteAllVanhatkirjat";
+
+        _methodParameterTypes109 = new String[] {  };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -253,11 +265,21 @@ public class VanhatkirjatLocalServiceClpInvoker {
 
         if (_methodName106.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes106, parameterTypes)) {
-            return VanhatkirjatLocalServiceUtil.findAllByPublishStatus(((Integer) arguments[0]).intValue());
+            return VanhatkirjatLocalServiceUtil.findAllByTitle((java.lang.String) arguments[0]);
         }
 
         if (_methodName107.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes107, parameterTypes)) {
+            return VanhatkirjatLocalServiceUtil.findAllByAuthor((java.lang.String) arguments[0]);
+        }
+
+        if (_methodName108.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes108, parameterTypes)) {
+            return VanhatkirjatLocalServiceUtil.findAllByPublishStatus(((Integer) arguments[0]).intValue());
+        }
+
+        if (_methodName109.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes109, parameterTypes)) {
             return VanhatkirjatLocalServiceUtil.deleteAllVanhatkirjat();
         }
 

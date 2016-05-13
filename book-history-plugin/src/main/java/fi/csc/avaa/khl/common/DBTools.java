@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package fi.csc.avaa.khl.common;
 
@@ -27,12 +27,11 @@ import fi.csc.avaa.tools.logging.AvaaLogger;
 
 /**
  * @author jmlehtin
- *
  */
 public final class DBTools {
 
 	static final AvaaLogger log = new AvaaLogger(DBTools.class.getName());
-	
+
 	public static List<Vanhatkirjat> getAllVanhatkirjat() {
 		try {
 			return VanhatkirjatLocalServiceUtil.getVanhatkirjats(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
@@ -42,46 +41,47 @@ public final class DBTools {
 		}
 		return null;
 	}
-	
-	public static synchronized boolean modifyFieldsOfAllVanhatkirjat(List<Vanhatkirjat> vksToModify, String fieldToModify, String newFieldValue) {
-		for(Vanhatkirjat vk : vksToModify) {
+
+	public static synchronized boolean modifyFieldsOfAllVanhatkirjat(List<Vanhatkirjat> vksToModify, String
+			fieldToModify, String newFieldValue) {
+		for (Vanhatkirjat vk : vksToModify) {
 			switch (fieldToModify) {
-			case Const.authorKey:
-				vk.setTekija(newFieldValue);
-				break;
-			case Const.titleKey:
-				vk.setTeoknimi(newFieldValue);
-				break;
-			case Const.publicationYearKey:
-				int year = 0;
-				try {
-					year = Integer.parseInt(newFieldValue);
-				} catch(NumberFormatException e) {
-					log.error("Unable to interpret " + newFieldValue + " as a number");
+				case Const.authorKey:
+					vk.setTekija(newFieldValue);
+					break;
+				case Const.titleKey:
+					vk.setTeoknimi(newFieldValue);
+					break;
+				case Const.publicationYearKey:
+					int year = 0;
+					try {
+						year = Integer.parseInt(newFieldValue);
+					} catch (NumberFormatException e) {
+						log.error("Unable to interpret " + newFieldValue + " as a number");
+						return false;
+					}
+					vk.setPainovuosi(year);
+					break;
+				case Const.placeOfPrintingKey:
+					vk.setPainopaikka(newFieldValue);
+					break;
+				case Const.printingOfficeKey:
+					vk.setKirjapaino(newFieldValue);
+					break;
+				case Const.additionalInfoKey:
+					vk.setLisatieto(newFieldValue);
+					break;
+				case Const.emailKey:
+					vk.setLahemail(newFieldValue);
+					break;
+				default:
+					log.error("This kind of field cannot be modified: " + fieldToModify);
 					return false;
-				}
-				vk.setPainovuosi(year);
-				break;
-			case Const.placeOfPrintingKey:
-				vk.setPainopaikka(newFieldValue);
-				break;
-			case Const.printingOfficeKey:
-				vk.setKirjapaino(newFieldValue);
-				break;
-			case Const.additionalInfoKey:
-				vk.setLisatieto(newFieldValue);
-				break;
-			case Const.emailKey:
-				vk.setLahemail(newFieldValue);
-				break;
-			default:
-				log.error("This kind of field cannot be modified: " + fieldToModify);
-				return false;
 			}
-			if(!updateVanhatkirjatToDatabaseWithStatus(vk, CompleteVanhatkirjat.getNewModifiedStatus(vk.getStatus()), true, false)) {
+			if (!updateVanhatkirjatToDatabaseWithStatus(vk, CompleteVanhatkirjat.getNewModifiedStatus(vk.getStatus()),
+					true, false)) {
 				return false; // return if something goes wrong
-			}
-			else {
+			} else {
 				// Jos muokattavien kirjojen määrä nousee useisiin tuhansiin (4000?) olisi nopeampaa synkata koko cache
 				CompleteVanhatkirjatCache.syncBookInDatabaseToCaches(vk.getVkid(), false, false);
 			}
@@ -89,13 +89,14 @@ public final class DBTools {
 		return true; //TODO: Pitäisikö tämän olla true vai false jos ei ole yhtään hakutuloksia?
 	}
 
-	public static synchronized boolean updateVanhatkirjatToDatabaseWithStatus(Vanhatkirjat vk, int status, boolean setModifiedField, boolean setDeletedField) {
-		if(status != -1) {
+	public static synchronized boolean updateVanhatkirjatToDatabaseWithStatus(Vanhatkirjat vk, int status, boolean
+			setModifiedField, boolean setDeletedField) {
+		if (status != -1) {
 			vk.setStatus(status);
-			if(setModifiedField) {
+			if (setModifiedField) {
 				vk.setMuokattu(new Date());
 			}
-			if(setDeletedField) {
+			if (setDeletedField) {
 				vk.setPoistettu(new Date());
 			} else {
 				vk.setPoistettu(null);
@@ -110,10 +111,12 @@ public final class DBTools {
 			log.info("Successfully updated Vanhatkirjat entry with vkid " + vk.getVkid());
 			return true;
 		}
-		log.error("Status code cannot be -1.. and if it is, it indicates a false state transition has occurred at some point");
+		log.error("Status code cannot be -1.. and if it is, it indicates a false state transition has occurred at " +
+				"some" +
+				" point");
 		return false;
 	}
-	
+
 	public static synchronized boolean deleteVanhatkirjatFromDatabase(int vkid) {
 		try {
 			VanhatkirjatLocalServiceUtil.deleteVanhatkirjat(vkid);
@@ -128,7 +131,8 @@ public final class DBTools {
 /*
 	public static synchronized boolean deleteAllNonUnpublishedVanhatkirjatFromDatabase() {
 		List<Vanhatkirjat> allVks = getAllVanhatkirjat();
-		List<Vanhatkirjat> allUnpublishedVks = allVks.stream().filter(vk -> vk.getStatus() == Const.STATUS_WWW_AND_UNPUBLISHED).collect(Collectors.toList());
+		List<Vanhatkirjat> allUnpublishedVks = allVks.stream().filter(vk -> vk.getStatus() == Const
+		.STATUS_WWW_AND_UNPUBLISHED).collect(Collectors.toList());
 		
 		if(deleteAllVanhatkirjatFromDatabase()) {
 			addBackUnpublishedVanhatkirjatToDatabase(allUnpublishedVks);
@@ -146,7 +150,8 @@ public final class DBTools {
 			if(addVanhatkirjatToDatabase(vk)) {
 				addedAmt++;
 			} else {
-				log.error("Unable to add vanhatkirjat entry to database. title: " + vk.getTeoknimi() + " and author: " + vk.getTekija() + " and publication year: " + vk.getPainovuosi());
+				log.error("Unable to add vanhatkirjat entry to database. title: " + vk.getTeoknimi() + " and author: "
+				 + vk.getTekija() + " and publication year: " + vk.getPainovuosi());
 			}
 			newVkid++;
 		}
@@ -154,7 +159,7 @@ public final class DBTools {
 	}
 
 */
-	
+
 	public static synchronized boolean deleteAllVanhatkirjatFromDatabase() {
 		log.info("Starting to delete all vanhatkirjat entries from database...");
 		try {
@@ -198,7 +203,7 @@ public final class DBTools {
 			String email,
 			String collection,
 			Date paivays) {
-		
+
 		int kuntaId = 0;
 		int maakuntaId = 0;
 		try {
@@ -209,19 +214,27 @@ public final class DBTools {
 			log.error("Error fetching related objects when starting to build new Vanhatkirjat object");
 			return null;
 		}
-		
-		int kartkohdeId = CompleteVanhatkirjatCache.mappingTargetsId.get(mappingTarget) == null ? 0 : CompleteVanhatkirjatCache.mappingTargetsId.get(mappingTarget);
-		int julklajiId = CompleteVanhatkirjatCache.publicationTypesId.get(publicationType) == null ? 0 : CompleteVanhatkirjatCache.publicationTypesId.get(publicationType);
-		int kielestaId = CompleteVanhatkirjatCache.fromLanguagesId.get(fromLanguage) == null ? 0 : CompleteVanhatkirjatCache.fromLanguagesId.get(fromLanguage);
-		int kieliId = CompleteVanhatkirjatCache.languagesId.get(language) == null ? 0 : CompleteVanhatkirjatCache.languagesId.get(language);
-		int kuntoId = CompleteVanhatkirjatCache.conditionTypesId.get(condition) == null ? 0 : CompleteVanhatkirjatCache.conditionTypesId.get(condition);
-		int puuteId = CompleteVanhatkirjatCache.deficiencyTypesId.get(deficiencies) == null ? 0 : CompleteVanhatkirjatCache.deficiencyTypesId.get(deficiencies);
-		int sidontaId = CompleteVanhatkirjatCache.ligatureTypesId.get(ligature) == null ? 0 : CompleteVanhatkirjatCache.ligatureTypesId.get(ligature);
-		int teospkId = CompleteVanhatkirjatCache.titleFromMunicipalityTypesId.get(worksOfLocalInhabitant) == null ? 0 : CompleteVanhatkirjatCache.titleFromMunicipalityTypesId.get(worksOfLocalInhabitant);
-		
+
+		int kartkohdeId = CompleteVanhatkirjatCache.mappingTargetsId.get(mappingTarget) == null ? 0 :
+				CompleteVanhatkirjatCache.mappingTargetsId.get(mappingTarget);
+		int julklajiId = CompleteVanhatkirjatCache.publicationTypesId.get(publicationType) == null ? 0 :
+				CompleteVanhatkirjatCache.publicationTypesId.get(publicationType);
+		int kielestaId = CompleteVanhatkirjatCache.fromLanguagesId.get(fromLanguage) == null ? 0 :
+				CompleteVanhatkirjatCache.fromLanguagesId.get(fromLanguage);
+		int kieliId = CompleteVanhatkirjatCache.languagesId.get(language) == null ? 0 : CompleteVanhatkirjatCache
+				.languagesId.get(language);
+		int kuntoId = CompleteVanhatkirjatCache.conditionTypesId.get(condition) == null ? 0 :
+				CompleteVanhatkirjatCache.conditionTypesId.get(condition);
+		int puuteId = CompleteVanhatkirjatCache.deficiencyTypesId.get(deficiencies) == null ? 0 :
+				CompleteVanhatkirjatCache.deficiencyTypesId.get(deficiencies);
+		int sidontaId = CompleteVanhatkirjatCache.ligatureTypesId.get(ligature) == null ? 0 :
+				CompleteVanhatkirjatCache.ligatureTypesId.get(ligature);
+		int teospkId = CompleteVanhatkirjatCache.titleFromMunicipalityTypesId.get(worksOfLocalInhabitant) == null ? 0
+				: CompleteVanhatkirjatCache.titleFromMunicipalityTypesId.get(worksOfLocalInhabitant);
+
 		try {
 			Vanhatkirjat vkToModify = VanhatkirjatLocalServiceUtil.getVanhatkirjat(vkid);
-			if(vkToModify != null) {
+			if (vkToModify != null) {
 				vkToModify.setExlibris(bookplate);
 				vkToModify.setHintamerk(priceMark);
 				vkToModify.setImprimatur(imprimatur);
@@ -262,7 +275,7 @@ public final class DBTools {
 		}
 		return null;
 	}
-	
+
 	public static synchronized Vanhatkirjat getNewVanhatkirjatWithFields(
 			int vkid,
 			String author,
@@ -298,18 +311,28 @@ public final class DBTools {
 			Date paivays,
 			Date modifiedDate,
 			Date deletedDate) {
-		
-		int municipalityId = CompleteVanhatkirjatCache.municipalitiesId.get(municipality) == null ? 0 : CompleteVanhatkirjatCache.municipalitiesId.get(municipality);
-		int mappingTargetId = CompleteVanhatkirjatCache.mappingTargetsId.get(mappingTarget) == null ? 0 : CompleteVanhatkirjatCache.mappingTargetsId.get(mappingTarget);
-		int publicationTypeId = CompleteVanhatkirjatCache.publicationTypesId.get(publicationType) == null ? 0 : CompleteVanhatkirjatCache.publicationTypesId.get(publicationType);
-		int fromLanguageId = CompleteVanhatkirjatCache.fromLanguagesId.get(fromLanguage) == null ? 0 : CompleteVanhatkirjatCache.fromLanguagesId.get(fromLanguage);
-		int languageId = CompleteVanhatkirjatCache.languagesId.get(language) == null ? 0 : CompleteVanhatkirjatCache.languagesId.get(language);
-		int conditionId = CompleteVanhatkirjatCache.conditionTypesId.get(condition) == null ? 0 : CompleteVanhatkirjatCache.conditionTypesId.get(condition);
-		int deficienciesId = CompleteVanhatkirjatCache.deficiencyTypesId.get(deficiencies) == null ? 0 : CompleteVanhatkirjatCache.deficiencyTypesId.get(deficiencies);
-		int ligatureId = CompleteVanhatkirjatCache.ligatureTypesId.get(ligature) == null ? 0 : CompleteVanhatkirjatCache.ligatureTypesId.get(ligature);
-		int worksOfLocalInhabitantId = CompleteVanhatkirjatCache.titleFromMunicipalityTypesId.get(worksOfLocalInhabitant) == null ? 0 : CompleteVanhatkirjatCache.titleFromMunicipalityTypesId.get(worksOfLocalInhabitant);
-		
-		if(!StringTools.isEmptyOrNull(email)) {
+
+		int municipalityId = CompleteVanhatkirjatCache.municipalitiesId.get(municipality) == null ? 0 :
+				CompleteVanhatkirjatCache.municipalitiesId.get(municipality);
+		int mappingTargetId = CompleteVanhatkirjatCache.mappingTargetsId.get(mappingTarget) == null ? 0 :
+				CompleteVanhatkirjatCache.mappingTargetsId.get(mappingTarget);
+		int publicationTypeId = CompleteVanhatkirjatCache.publicationTypesId.get(publicationType) == null ? 0 :
+				CompleteVanhatkirjatCache.publicationTypesId.get(publicationType);
+		int fromLanguageId = CompleteVanhatkirjatCache.fromLanguagesId.get(fromLanguage) == null ? 0 :
+				CompleteVanhatkirjatCache.fromLanguagesId.get(fromLanguage);
+		int languageId = CompleteVanhatkirjatCache.languagesId.get(language) == null ? 0 : CompleteVanhatkirjatCache
+				.languagesId.get(language);
+		int conditionId = CompleteVanhatkirjatCache.conditionTypesId.get(condition) == null ? 0 :
+				CompleteVanhatkirjatCache.conditionTypesId.get(condition);
+		int deficienciesId = CompleteVanhatkirjatCache.deficiencyTypesId.get(deficiencies) == null ? 0 :
+				CompleteVanhatkirjatCache.deficiencyTypesId.get(deficiencies);
+		int ligatureId = CompleteVanhatkirjatCache.ligatureTypesId.get(ligature) == null ? 0 :
+				CompleteVanhatkirjatCache.ligatureTypesId.get(ligature);
+		int worksOfLocalInhabitantId = CompleteVanhatkirjatCache.titleFromMunicipalityTypesId.get
+				(worksOfLocalInhabitant) == null ? 0 : CompleteVanhatkirjatCache.titleFromMunicipalityTypesId.get
+				(worksOfLocalInhabitant);
+
+		if (!StringTools.isEmptyOrNull(email)) {
 			return getNewVanhatkirjatWithMappedFields(
 					vkid,
 					author,
@@ -348,7 +371,7 @@ public final class DBTools {
 		}
 		return null;
 	}
-	
+
 	public static synchronized Vanhatkirjat getNewVanhatkirjatWithMappedFields(
 			int vkid,
 			String author,
@@ -384,7 +407,7 @@ public final class DBTools {
 			Date paivays,
 			Date modifiedDate,
 			Date deletedDate) {
-		
+
 		int maakuntaId = 0;
 		try {
 			Kuntainfo kInfo = KuntainfoLocalServiceUtil.getKuntainfo(municipalityId);
@@ -393,10 +416,10 @@ public final class DBTools {
 			log.error("Error fetching related objects when starting to build new Vanhatkirjat object");
 			return null;
 		}
-		
-		if(municipalityId > 0) {
+
+		if (municipalityId > 0) {
 			Vanhatkirjat newVk = VanhatkirjatLocalServiceUtil.createVanhatkirjat(vkid);
-			if(newVk != null) {
+			if (newVk != null) {
 				newVk.setExlibris(bookplate);
 				newVk.setHintamerk(priceMark);
 				newVk.setImprimatur(imprimatur);
@@ -436,7 +459,7 @@ public final class DBTools {
 		}
 		return null;
 	}
-	
+
 	public static boolean addNewVanhatkirjatToDatabase(Vanhatkirjat vk, int status) {
 		vk.setPaivays(new Date());
 		vk.setStatus(status);
@@ -448,7 +471,7 @@ public final class DBTools {
 		}
 		return false;
 	}
-	
+
 	public static boolean addVanhatkirjatToDatabase(Vanhatkirjat vk) {
 		try {
 			return VanhatkirjatLocalServiceUtil.addVanhatkirjat(vk) != null;
@@ -458,7 +481,7 @@ public final class DBTools {
 		}
 		return false;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static synchronized int getNextAvailableVkidInDatabase() {
 		DynamicQuery maxVkidQuery = DynamicQueryFactoryUtil.forClass(Vanhatkirjat.class);
@@ -466,8 +489,8 @@ public final class DBTools {
 		List<Integer> results = null;
 		try {
 			results = VanhatkirjatLocalServiceUtil.dynamicQuery(maxVkidQuery);
-			if(results != null && results.size() == 1) {
-				if(results.get(0) == null) {
+			if (results != null && results.size() == 1) {
+				if (results.get(0) == null) {
 					throw new SystemException();
 				}
 				return ((int) results.get(0)) + 1;
@@ -477,16 +500,16 @@ public final class DBTools {
 		}
 		return 1;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static List<Vanhatkirjat> getVanhatkirjatByStatuses(int...statuses) {
+	public static List<Vanhatkirjat> getVanhatkirjatByStatuses(int... statuses) {
 		List<Vanhatkirjat> retVal = new ArrayList<>();
-		if(statuses.length == 0) {
+		if (statuses.length == 0) {
 			return retVal;
 		}
 		DynamicQuery dQuery = DynamicQueryFactoryUtil.forClass(Vanhatkirjat.class);
 		Disjunction disjunction = RestrictionsFactoryUtil.disjunction();
-		for(int status : statuses) {
+		for (int status : statuses) {
 			disjunction.add(PropertyFactoryUtil.forName("status").eq(status));
 		}
 		dQuery.add(disjunction);
@@ -498,7 +521,7 @@ public final class DBTools {
 		}
 		return retVal;
 	}
-	
+
 	public static Vanhatkirjat getVanhatkirjat(int vkid) {
 		try {
 			return VanhatkirjatLocalServiceUtil.getVanhatkirjat(vkid);
@@ -508,5 +531,58 @@ public final class DBTools {
 			return null;
 		}
 	}
-	
+
+	public static List<Vanhatkirjat> getVanhatKirjatByTitleAuthorFromYearPublisedToYearPublished(String bookTitle,
+																								 String bookAuthor,
+																								 int
+																										 fromYearPublished, int toYearPublished) {
+		List<Vanhatkirjat> result = null;
+
+		try {
+			DynamicQuery query = DynamicQueryFactoryUtil.forClass(Vanhatkirjat.class);
+			query.add(PropertyFactoryUtil.forName("teoknimi").eq(new String(bookTitle)));
+			query.add(PropertyFactoryUtil.forName("tekija").eq(new String(bookAuthor)));
+			query.add(PropertyFactoryUtil.forName("painovuosi").between(new Long(fromYearPublished), new Long(toYearPublished)));
+			
+			result = VanhatkirjatLocalServiceUtil.dynamicQuery(query);
+		} catch (SystemException e) {
+			log.error("Unable to fetch vanhatkirjat entry from database with title: " + bookTitle + " and author: " +
+					bookAuthor + " period: from " + fromYearPublished + " to " + toYearPublished);
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public static List<Vanhatkirjat> getVanhatKirjatByTitle(String bookTitle) {
+		List<Vanhatkirjat> result = null;
+
+		try {
+			result = VanhatkirjatLocalServiceUtil.findAllByTitle(bookTitle);
+		} catch (SystemException e) {
+			log.error("Unable to fetch vanhatkirjat entry from database with title: " + bookTitle);
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public static List<Vanhatkirjat> getVanhatKirjatByAuthor(String bookAuthor) {
+		List<Vanhatkirjat> result = null;
+
+		try {
+			result = VanhatkirjatLocalServiceUtil.findAllByTitle(bookAuthor);
+		} catch (SystemException e) {
+			log.error("Unable to fetch vanhatkirjat entry from database with author: " + bookAuthor);
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public static List<Vanhatkirjat> getVanhatKirjatByFromYearPublisedToYearPublished(int fromYearPublished, int
+			toYearPublished) {
+		List<Vanhatkirjat> result = null;
+		
+		log.error("Unable to fetch vanhatkirjat entry from database for period: from " + fromYearPublished + " to " +
+				"" + toYearPublished);
+		return result;
+	}
 }

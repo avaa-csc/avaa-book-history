@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnmodifiableList;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -90,6 +91,49 @@ public class VanhatkirjatPersistenceImpl extends BasePersistenceImpl<Vanhatkirja
             FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByPublishStatus",
             new String[] { Integer.class.getName() });
     private static final String _FINDER_COLUMN_PUBLISHSTATUS_STATUS_2 = "vanhatkirjat.status = ?";
+    public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_TITLE = new FinderPath(VanhatkirjatModelImpl.ENTITY_CACHE_ENABLED,
+            VanhatkirjatModelImpl.FINDER_CACHE_ENABLED, VanhatkirjatImpl.class,
+            FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByTitle",
+            new String[] {
+                String.class.getName(),
+                
+            Integer.class.getName(), Integer.class.getName(),
+                OrderByComparator.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TITLE = new FinderPath(VanhatkirjatModelImpl.ENTITY_CACHE_ENABLED,
+            VanhatkirjatModelImpl.FINDER_CACHE_ENABLED, VanhatkirjatImpl.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByTitle",
+            new String[] { String.class.getName() },
+            VanhatkirjatModelImpl.TEOKNIMI_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_TITLE = new FinderPath(VanhatkirjatModelImpl.ENTITY_CACHE_ENABLED,
+            VanhatkirjatModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTitle",
+            new String[] { String.class.getName() });
+    private static final String _FINDER_COLUMN_TITLE_TEOKNIMI_1 = "vanhatkirjat.teoknimi IS NULL";
+    private static final String _FINDER_COLUMN_TITLE_TEOKNIMI_2 = "vanhatkirjat.teoknimi = ?";
+    private static final String _FINDER_COLUMN_TITLE_TEOKNIMI_3 = "(vanhatkirjat.teoknimi IS NULL OR vanhatkirjat.teoknimi = '')";
+    public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_AUTHOR = new FinderPath(VanhatkirjatModelImpl.ENTITY_CACHE_ENABLED,
+            VanhatkirjatModelImpl.FINDER_CACHE_ENABLED, VanhatkirjatImpl.class,
+            FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByAuthor",
+            new String[] {
+                String.class.getName(),
+                
+            Integer.class.getName(), Integer.class.getName(),
+                OrderByComparator.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_AUTHOR =
+        new FinderPath(VanhatkirjatModelImpl.ENTITY_CACHE_ENABLED,
+            VanhatkirjatModelImpl.FINDER_CACHE_ENABLED, VanhatkirjatImpl.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByAuthor",
+            new String[] { String.class.getName() },
+            VanhatkirjatModelImpl.TEKIJA_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_AUTHOR = new FinderPath(VanhatkirjatModelImpl.ENTITY_CACHE_ENABLED,
+            VanhatkirjatModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAuthor",
+            new String[] { String.class.getName() });
+    private static final String _FINDER_COLUMN_AUTHOR_TEKIJA_1 = "vanhatkirjat.tekija IS NULL";
+    private static final String _FINDER_COLUMN_AUTHOR_TEKIJA_2 = "vanhatkirjat.tekija = ?";
+    private static final String _FINDER_COLUMN_AUTHOR_TEKIJA_3 = "(vanhatkirjat.tekija IS NULL OR vanhatkirjat.tekija = '')";
     private static final String _SQL_SELECT_VANHATKIRJAT = "SELECT vanhatkirjat FROM Vanhatkirjat vanhatkirjat";
     private static final String _SQL_SELECT_VANHATKIRJAT_WHERE = "SELECT vanhatkirjat FROM Vanhatkirjat vanhatkirjat WHERE ";
     private static final String _SQL_COUNT_VANHATKIRJAT = "SELECT COUNT(vanhatkirjat) FROM Vanhatkirjat vanhatkirjat";
@@ -575,6 +619,975 @@ public class VanhatkirjatPersistenceImpl extends BasePersistenceImpl<Vanhatkirja
     }
 
     /**
+     * Returns all the vanhatkirjats where teoknimi = &#63;.
+     *
+     * @param teoknimi the teoknimi
+     * @return the matching vanhatkirjats
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Vanhatkirjat> findByTitle(String teoknimi)
+        throws SystemException {
+        return findByTitle(teoknimi, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+    }
+
+    /**
+     * Returns a range of all the vanhatkirjats where teoknimi = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link fi.csc.avaa.khl.db.model.impl.VanhatkirjatModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param teoknimi the teoknimi
+     * @param start the lower bound of the range of vanhatkirjats
+     * @param end the upper bound of the range of vanhatkirjats (not inclusive)
+     * @return the range of matching vanhatkirjats
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Vanhatkirjat> findByTitle(String teoknimi, int start, int end)
+        throws SystemException {
+        return findByTitle(teoknimi, start, end, null);
+    }
+
+    /**
+     * Returns an ordered range of all the vanhatkirjats where teoknimi = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link fi.csc.avaa.khl.db.model.impl.VanhatkirjatModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param teoknimi the teoknimi
+     * @param start the lower bound of the range of vanhatkirjats
+     * @param end the upper bound of the range of vanhatkirjats (not inclusive)
+     * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+     * @return the ordered range of matching vanhatkirjats
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Vanhatkirjat> findByTitle(String teoknimi, int start, int end,
+        OrderByComparator orderByComparator) throws SystemException {
+        boolean pagination = true;
+        FinderPath finderPath = null;
+        Object[] finderArgs = null;
+
+        if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+                (orderByComparator == null)) {
+            pagination = false;
+            finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TITLE;
+            finderArgs = new Object[] { teoknimi };
+        } else {
+            finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_TITLE;
+            finderArgs = new Object[] { teoknimi, start, end, orderByComparator };
+        }
+
+        List<Vanhatkirjat> list = (List<Vanhatkirjat>) FinderCacheUtil.getResult(finderPath,
+                finderArgs, this);
+
+        if ((list != null) && !list.isEmpty()) {
+            for (Vanhatkirjat vanhatkirjat : list) {
+                if (!Validator.equals(teoknimi, vanhatkirjat.getTeoknimi())) {
+                    list = null;
+
+                    break;
+                }
+            }
+        }
+
+        if (list == null) {
+            StringBundler query = null;
+
+            if (orderByComparator != null) {
+                query = new StringBundler(3 +
+                        (orderByComparator.getOrderByFields().length * 3));
+            } else {
+                query = new StringBundler(3);
+            }
+
+            query.append(_SQL_SELECT_VANHATKIRJAT_WHERE);
+
+            boolean bindTeoknimi = false;
+
+            if (teoknimi == null) {
+                query.append(_FINDER_COLUMN_TITLE_TEOKNIMI_1);
+            } else if (teoknimi.equals(StringPool.BLANK)) {
+                query.append(_FINDER_COLUMN_TITLE_TEOKNIMI_3);
+            } else {
+                bindTeoknimi = true;
+
+                query.append(_FINDER_COLUMN_TITLE_TEOKNIMI_2);
+            }
+
+            if (orderByComparator != null) {
+                appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+                    orderByComparator);
+            } else
+             if (pagination) {
+                query.append(VanhatkirjatModelImpl.ORDER_BY_JPQL);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (bindTeoknimi) {
+                    qPos.add(teoknimi);
+                }
+
+                if (!pagination) {
+                    list = (List<Vanhatkirjat>) QueryUtil.list(q, getDialect(),
+                            start, end, false);
+
+                    Collections.sort(list);
+
+                    list = new UnmodifiableList<Vanhatkirjat>(list);
+                } else {
+                    list = (List<Vanhatkirjat>) QueryUtil.list(q, getDialect(),
+                            start, end);
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, list);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    /**
+     * Returns the first vanhatkirjat in the ordered set where teoknimi = &#63;.
+     *
+     * @param teoknimi the teoknimi
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching vanhatkirjat
+     * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a matching vanhatkirjat could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Vanhatkirjat findByTitle_First(String teoknimi,
+        OrderByComparator orderByComparator)
+        throws NoSuchVanhatkirjatException, SystemException {
+        Vanhatkirjat vanhatkirjat = fetchByTitle_First(teoknimi,
+                orderByComparator);
+
+        if (vanhatkirjat != null) {
+            return vanhatkirjat;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("teoknimi=");
+        msg.append(teoknimi);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchVanhatkirjatException(msg.toString());
+    }
+
+    /**
+     * Returns the first vanhatkirjat in the ordered set where teoknimi = &#63;.
+     *
+     * @param teoknimi the teoknimi
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching vanhatkirjat, or <code>null</code> if a matching vanhatkirjat could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Vanhatkirjat fetchByTitle_First(String teoknimi,
+        OrderByComparator orderByComparator) throws SystemException {
+        List<Vanhatkirjat> list = findByTitle(teoknimi, 0, 1, orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the last vanhatkirjat in the ordered set where teoknimi = &#63;.
+     *
+     * @param teoknimi the teoknimi
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching vanhatkirjat
+     * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a matching vanhatkirjat could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Vanhatkirjat findByTitle_Last(String teoknimi,
+        OrderByComparator orderByComparator)
+        throws NoSuchVanhatkirjatException, SystemException {
+        Vanhatkirjat vanhatkirjat = fetchByTitle_Last(teoknimi,
+                orderByComparator);
+
+        if (vanhatkirjat != null) {
+            return vanhatkirjat;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("teoknimi=");
+        msg.append(teoknimi);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchVanhatkirjatException(msg.toString());
+    }
+
+    /**
+     * Returns the last vanhatkirjat in the ordered set where teoknimi = &#63;.
+     *
+     * @param teoknimi the teoknimi
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching vanhatkirjat, or <code>null</code> if a matching vanhatkirjat could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Vanhatkirjat fetchByTitle_Last(String teoknimi,
+        OrderByComparator orderByComparator) throws SystemException {
+        int count = countByTitle(teoknimi);
+
+        if (count == 0) {
+            return null;
+        }
+
+        List<Vanhatkirjat> list = findByTitle(teoknimi, count - 1, count,
+                orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the vanhatkirjats before and after the current vanhatkirjat in the ordered set where teoknimi = &#63;.
+     *
+     * @param vkid the primary key of the current vanhatkirjat
+     * @param teoknimi the teoknimi
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the previous, current, and next vanhatkirjat
+     * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a vanhatkirjat with the primary key could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Vanhatkirjat[] findByTitle_PrevAndNext(int vkid, String teoknimi,
+        OrderByComparator orderByComparator)
+        throws NoSuchVanhatkirjatException, SystemException {
+        Vanhatkirjat vanhatkirjat = findByPrimaryKey(vkid);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            Vanhatkirjat[] array = new VanhatkirjatImpl[3];
+
+            array[0] = getByTitle_PrevAndNext(session, vanhatkirjat, teoknimi,
+                    orderByComparator, true);
+
+            array[1] = vanhatkirjat;
+
+            array[2] = getByTitle_PrevAndNext(session, vanhatkirjat, teoknimi,
+                    orderByComparator, false);
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    protected Vanhatkirjat getByTitle_PrevAndNext(Session session,
+        Vanhatkirjat vanhatkirjat, String teoknimi,
+        OrderByComparator orderByComparator, boolean previous) {
+        StringBundler query = null;
+
+        if (orderByComparator != null) {
+            query = new StringBundler(6 +
+                    (orderByComparator.getOrderByFields().length * 6));
+        } else {
+            query = new StringBundler(3);
+        }
+
+        query.append(_SQL_SELECT_VANHATKIRJAT_WHERE);
+
+        boolean bindTeoknimi = false;
+
+        if (teoknimi == null) {
+            query.append(_FINDER_COLUMN_TITLE_TEOKNIMI_1);
+        } else if (teoknimi.equals(StringPool.BLANK)) {
+            query.append(_FINDER_COLUMN_TITLE_TEOKNIMI_3);
+        } else {
+            bindTeoknimi = true;
+
+            query.append(_FINDER_COLUMN_TITLE_TEOKNIMI_2);
+        }
+
+        if (orderByComparator != null) {
+            String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+            if (orderByConditionFields.length > 0) {
+                query.append(WHERE_AND);
+            }
+
+            for (int i = 0; i < orderByConditionFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByConditionFields[i]);
+
+                if ((i + 1) < orderByConditionFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN_HAS_NEXT);
+                    } else {
+                        query.append(WHERE_LESSER_THAN_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN);
+                    } else {
+                        query.append(WHERE_LESSER_THAN);
+                    }
+                }
+            }
+
+            query.append(ORDER_BY_CLAUSE);
+
+            String[] orderByFields = orderByComparator.getOrderByFields();
+
+            for (int i = 0; i < orderByFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByFields[i]);
+
+                if ((i + 1) < orderByFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC_HAS_NEXT);
+                    } else {
+                        query.append(ORDER_BY_DESC_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC);
+                    } else {
+                        query.append(ORDER_BY_DESC);
+                    }
+                }
+            }
+        } else {
+            query.append(VanhatkirjatModelImpl.ORDER_BY_JPQL);
+        }
+
+        String sql = query.toString();
+
+        Query q = session.createQuery(sql);
+
+        q.setFirstResult(0);
+        q.setMaxResults(2);
+
+        QueryPos qPos = QueryPos.getInstance(q);
+
+        if (bindTeoknimi) {
+            qPos.add(teoknimi);
+        }
+
+        if (orderByComparator != null) {
+            Object[] values = orderByComparator.getOrderByConditionValues(vanhatkirjat);
+
+            for (Object value : values) {
+                qPos.add(value);
+            }
+        }
+
+        List<Vanhatkirjat> list = q.list();
+
+        if (list.size() == 2) {
+            return list.get(1);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Removes all the vanhatkirjats where teoknimi = &#63; from the database.
+     *
+     * @param teoknimi the teoknimi
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public void removeByTitle(String teoknimi) throws SystemException {
+        for (Vanhatkirjat vanhatkirjat : findByTitle(teoknimi,
+                QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+            remove(vanhatkirjat);
+        }
+    }
+
+    /**
+     * Returns the number of vanhatkirjats where teoknimi = &#63;.
+     *
+     * @param teoknimi the teoknimi
+     * @return the number of matching vanhatkirjats
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countByTitle(String teoknimi) throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_TITLE;
+
+        Object[] finderArgs = new Object[] { teoknimi };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(2);
+
+            query.append(_SQL_COUNT_VANHATKIRJAT_WHERE);
+
+            boolean bindTeoknimi = false;
+
+            if (teoknimi == null) {
+                query.append(_FINDER_COLUMN_TITLE_TEOKNIMI_1);
+            } else if (teoknimi.equals(StringPool.BLANK)) {
+                query.append(_FINDER_COLUMN_TITLE_TEOKNIMI_3);
+            } else {
+                bindTeoknimi = true;
+
+                query.append(_FINDER_COLUMN_TITLE_TEOKNIMI_2);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (bindTeoknimi) {
+                    qPos.add(teoknimi);
+                }
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
+     * Returns all the vanhatkirjats where tekija = &#63;.
+     *
+     * @param tekija the tekija
+     * @return the matching vanhatkirjats
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Vanhatkirjat> findByAuthor(String tekija)
+        throws SystemException {
+        return findByAuthor(tekija, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+    }
+
+    /**
+     * Returns a range of all the vanhatkirjats where tekija = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link fi.csc.avaa.khl.db.model.impl.VanhatkirjatModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param tekija the tekija
+     * @param start the lower bound of the range of vanhatkirjats
+     * @param end the upper bound of the range of vanhatkirjats (not inclusive)
+     * @return the range of matching vanhatkirjats
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Vanhatkirjat> findByAuthor(String tekija, int start, int end)
+        throws SystemException {
+        return findByAuthor(tekija, start, end, null);
+    }
+
+    /**
+     * Returns an ordered range of all the vanhatkirjats where tekija = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link fi.csc.avaa.khl.db.model.impl.VanhatkirjatModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param tekija the tekija
+     * @param start the lower bound of the range of vanhatkirjats
+     * @param end the upper bound of the range of vanhatkirjats (not inclusive)
+     * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+     * @return the ordered range of matching vanhatkirjats
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Vanhatkirjat> findByAuthor(String tekija, int start, int end,
+        OrderByComparator orderByComparator) throws SystemException {
+        boolean pagination = true;
+        FinderPath finderPath = null;
+        Object[] finderArgs = null;
+
+        if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+                (orderByComparator == null)) {
+            pagination = false;
+            finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_AUTHOR;
+            finderArgs = new Object[] { tekija };
+        } else {
+            finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_AUTHOR;
+            finderArgs = new Object[] { tekija, start, end, orderByComparator };
+        }
+
+        List<Vanhatkirjat> list = (List<Vanhatkirjat>) FinderCacheUtil.getResult(finderPath,
+                finderArgs, this);
+
+        if ((list != null) && !list.isEmpty()) {
+            for (Vanhatkirjat vanhatkirjat : list) {
+                if (!Validator.equals(tekija, vanhatkirjat.getTekija())) {
+                    list = null;
+
+                    break;
+                }
+            }
+        }
+
+        if (list == null) {
+            StringBundler query = null;
+
+            if (orderByComparator != null) {
+                query = new StringBundler(3 +
+                        (orderByComparator.getOrderByFields().length * 3));
+            } else {
+                query = new StringBundler(3);
+            }
+
+            query.append(_SQL_SELECT_VANHATKIRJAT_WHERE);
+
+            boolean bindTekija = false;
+
+            if (tekija == null) {
+                query.append(_FINDER_COLUMN_AUTHOR_TEKIJA_1);
+            } else if (tekija.equals(StringPool.BLANK)) {
+                query.append(_FINDER_COLUMN_AUTHOR_TEKIJA_3);
+            } else {
+                bindTekija = true;
+
+                query.append(_FINDER_COLUMN_AUTHOR_TEKIJA_2);
+            }
+
+            if (orderByComparator != null) {
+                appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+                    orderByComparator);
+            } else
+             if (pagination) {
+                query.append(VanhatkirjatModelImpl.ORDER_BY_JPQL);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (bindTekija) {
+                    qPos.add(tekija);
+                }
+
+                if (!pagination) {
+                    list = (List<Vanhatkirjat>) QueryUtil.list(q, getDialect(),
+                            start, end, false);
+
+                    Collections.sort(list);
+
+                    list = new UnmodifiableList<Vanhatkirjat>(list);
+                } else {
+                    list = (List<Vanhatkirjat>) QueryUtil.list(q, getDialect(),
+                            start, end);
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, list);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    /**
+     * Returns the first vanhatkirjat in the ordered set where tekija = &#63;.
+     *
+     * @param tekija the tekija
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching vanhatkirjat
+     * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a matching vanhatkirjat could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Vanhatkirjat findByAuthor_First(String tekija,
+        OrderByComparator orderByComparator)
+        throws NoSuchVanhatkirjatException, SystemException {
+        Vanhatkirjat vanhatkirjat = fetchByAuthor_First(tekija,
+                orderByComparator);
+
+        if (vanhatkirjat != null) {
+            return vanhatkirjat;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("tekija=");
+        msg.append(tekija);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchVanhatkirjatException(msg.toString());
+    }
+
+    /**
+     * Returns the first vanhatkirjat in the ordered set where tekija = &#63;.
+     *
+     * @param tekija the tekija
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching vanhatkirjat, or <code>null</code> if a matching vanhatkirjat could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Vanhatkirjat fetchByAuthor_First(String tekija,
+        OrderByComparator orderByComparator) throws SystemException {
+        List<Vanhatkirjat> list = findByAuthor(tekija, 0, 1, orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the last vanhatkirjat in the ordered set where tekija = &#63;.
+     *
+     * @param tekija the tekija
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching vanhatkirjat
+     * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a matching vanhatkirjat could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Vanhatkirjat findByAuthor_Last(String tekija,
+        OrderByComparator orderByComparator)
+        throws NoSuchVanhatkirjatException, SystemException {
+        Vanhatkirjat vanhatkirjat = fetchByAuthor_Last(tekija, orderByComparator);
+
+        if (vanhatkirjat != null) {
+            return vanhatkirjat;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("tekija=");
+        msg.append(tekija);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchVanhatkirjatException(msg.toString());
+    }
+
+    /**
+     * Returns the last vanhatkirjat in the ordered set where tekija = &#63;.
+     *
+     * @param tekija the tekija
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching vanhatkirjat, or <code>null</code> if a matching vanhatkirjat could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Vanhatkirjat fetchByAuthor_Last(String tekija,
+        OrderByComparator orderByComparator) throws SystemException {
+        int count = countByAuthor(tekija);
+
+        if (count == 0) {
+            return null;
+        }
+
+        List<Vanhatkirjat> list = findByAuthor(tekija, count - 1, count,
+                orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the vanhatkirjats before and after the current vanhatkirjat in the ordered set where tekija = &#63;.
+     *
+     * @param vkid the primary key of the current vanhatkirjat
+     * @param tekija the tekija
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the previous, current, and next vanhatkirjat
+     * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a vanhatkirjat with the primary key could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Vanhatkirjat[] findByAuthor_PrevAndNext(int vkid, String tekija,
+        OrderByComparator orderByComparator)
+        throws NoSuchVanhatkirjatException, SystemException {
+        Vanhatkirjat vanhatkirjat = findByPrimaryKey(vkid);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            Vanhatkirjat[] array = new VanhatkirjatImpl[3];
+
+            array[0] = getByAuthor_PrevAndNext(session, vanhatkirjat, tekija,
+                    orderByComparator, true);
+
+            array[1] = vanhatkirjat;
+
+            array[2] = getByAuthor_PrevAndNext(session, vanhatkirjat, tekija,
+                    orderByComparator, false);
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    protected Vanhatkirjat getByAuthor_PrevAndNext(Session session,
+        Vanhatkirjat vanhatkirjat, String tekija,
+        OrderByComparator orderByComparator, boolean previous) {
+        StringBundler query = null;
+
+        if (orderByComparator != null) {
+            query = new StringBundler(6 +
+                    (orderByComparator.getOrderByFields().length * 6));
+        } else {
+            query = new StringBundler(3);
+        }
+
+        query.append(_SQL_SELECT_VANHATKIRJAT_WHERE);
+
+        boolean bindTekija = false;
+
+        if (tekija == null) {
+            query.append(_FINDER_COLUMN_AUTHOR_TEKIJA_1);
+        } else if (tekija.equals(StringPool.BLANK)) {
+            query.append(_FINDER_COLUMN_AUTHOR_TEKIJA_3);
+        } else {
+            bindTekija = true;
+
+            query.append(_FINDER_COLUMN_AUTHOR_TEKIJA_2);
+        }
+
+        if (orderByComparator != null) {
+            String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+            if (orderByConditionFields.length > 0) {
+                query.append(WHERE_AND);
+            }
+
+            for (int i = 0; i < orderByConditionFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByConditionFields[i]);
+
+                if ((i + 1) < orderByConditionFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN_HAS_NEXT);
+                    } else {
+                        query.append(WHERE_LESSER_THAN_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN);
+                    } else {
+                        query.append(WHERE_LESSER_THAN);
+                    }
+                }
+            }
+
+            query.append(ORDER_BY_CLAUSE);
+
+            String[] orderByFields = orderByComparator.getOrderByFields();
+
+            for (int i = 0; i < orderByFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByFields[i]);
+
+                if ((i + 1) < orderByFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC_HAS_NEXT);
+                    } else {
+                        query.append(ORDER_BY_DESC_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC);
+                    } else {
+                        query.append(ORDER_BY_DESC);
+                    }
+                }
+            }
+        } else {
+            query.append(VanhatkirjatModelImpl.ORDER_BY_JPQL);
+        }
+
+        String sql = query.toString();
+
+        Query q = session.createQuery(sql);
+
+        q.setFirstResult(0);
+        q.setMaxResults(2);
+
+        QueryPos qPos = QueryPos.getInstance(q);
+
+        if (bindTekija) {
+            qPos.add(tekija);
+        }
+
+        if (orderByComparator != null) {
+            Object[] values = orderByComparator.getOrderByConditionValues(vanhatkirjat);
+
+            for (Object value : values) {
+                qPos.add(value);
+            }
+        }
+
+        List<Vanhatkirjat> list = q.list();
+
+        if (list.size() == 2) {
+            return list.get(1);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Removes all the vanhatkirjats where tekija = &#63; from the database.
+     *
+     * @param tekija the tekija
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public void removeByAuthor(String tekija) throws SystemException {
+        for (Vanhatkirjat vanhatkirjat : findByAuthor(tekija,
+                QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+            remove(vanhatkirjat);
+        }
+    }
+
+    /**
+     * Returns the number of vanhatkirjats where tekija = &#63;.
+     *
+     * @param tekija the tekija
+     * @return the number of matching vanhatkirjats
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countByAuthor(String tekija) throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_AUTHOR;
+
+        Object[] finderArgs = new Object[] { tekija };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(2);
+
+            query.append(_SQL_COUNT_VANHATKIRJAT_WHERE);
+
+            boolean bindTekija = false;
+
+            if (tekija == null) {
+                query.append(_FINDER_COLUMN_AUTHOR_TEKIJA_1);
+            } else if (tekija.equals(StringPool.BLANK)) {
+                query.append(_FINDER_COLUMN_AUTHOR_TEKIJA_3);
+            } else {
+                bindTekija = true;
+
+                query.append(_FINDER_COLUMN_AUTHOR_TEKIJA_2);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (bindTekija) {
+                    qPos.add(tekija);
+                }
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
      * Caches the vanhatkirjat in the entity cache if it is enabled.
      *
      * @param vanhatkirjat the vanhatkirjat
@@ -801,6 +1814,40 @@ public class VanhatkirjatPersistenceImpl extends BasePersistenceImpl<Vanhatkirja
                 FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_PUBLISHSTATUS,
                     args);
                 FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_PUBLISHSTATUS,
+                    args);
+            }
+
+            if ((vanhatkirjatModelImpl.getColumnBitmask() &
+                    FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TITLE.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] {
+                        vanhatkirjatModelImpl.getOriginalTeoknimi()
+                    };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TITLE, args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TITLE,
+                    args);
+
+                args = new Object[] { vanhatkirjatModelImpl.getTeoknimi() };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TITLE, args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TITLE,
+                    args);
+            }
+
+            if ((vanhatkirjatModelImpl.getColumnBitmask() &
+                    FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_AUTHOR.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] {
+                        vanhatkirjatModelImpl.getOriginalTekija()
+                    };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_AUTHOR, args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_AUTHOR,
+                    args);
+
+                args = new Object[] { vanhatkirjatModelImpl.getTekija() };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_AUTHOR, args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_AUTHOR,
                     args);
             }
         }

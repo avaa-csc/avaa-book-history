@@ -51,8 +51,29 @@ public class BookHistoryAPIServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
-    public static java.lang.String getHelloWorld() {
-        return getService().getHelloWorld();
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitleAuthorFromYearPublisedToYearPublished(
+        java.lang.String bookTitle, java.lang.String bookAuthor,
+        int fromYearPublished, int toYearPublished) {
+        return getService()
+                   .getBooksByTitleAuthorFromYearPublisedToYearPublished(bookTitle,
+            bookAuthor, fromYearPublished, toYearPublished);
+    }
+
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitle(
+        java.lang.String bookTitle) {
+        return getService().getBooksByTitle(bookTitle);
+    }
+
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByAuthor(
+        java.lang.String bookAuthor) {
+        return getService().getBooksByAuthor(bookAuthor);
+    }
+
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByFromYearPublisedToYearPublished(
+        int fromYearPublished, int toYearPublished) {
+        return getService()
+                   .getBooksByFromYearPublisedToYearPublished(fromYearPublished,
+            toYearPublished);
     }
 
     public static void clearService() {

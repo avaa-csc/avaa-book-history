@@ -263,6 +263,326 @@ public class VanhatkirjatUtil {
     }
 
     /**
+    * Returns all the vanhatkirjats where teoknimi = &#63;.
+    *
+    * @param teoknimi the teoknimi
+    * @return the matching vanhatkirjats
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findByTitle(
+        java.lang.String teoknimi)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().findByTitle(teoknimi);
+    }
+
+    /**
+    * Returns a range of all the vanhatkirjats where teoknimi = &#63;.
+    *
+    * <p>
+    * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link fi.csc.avaa.khl.db.model.impl.VanhatkirjatModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+    * </p>
+    *
+    * @param teoknimi the teoknimi
+    * @param start the lower bound of the range of vanhatkirjats
+    * @param end the upper bound of the range of vanhatkirjats (not inclusive)
+    * @return the range of matching vanhatkirjats
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findByTitle(
+        java.lang.String teoknimi, int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().findByTitle(teoknimi, start, end);
+    }
+
+    /**
+    * Returns an ordered range of all the vanhatkirjats where teoknimi = &#63;.
+    *
+    * <p>
+    * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link fi.csc.avaa.khl.db.model.impl.VanhatkirjatModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+    * </p>
+    *
+    * @param teoknimi the teoknimi
+    * @param start the lower bound of the range of vanhatkirjats
+    * @param end the upper bound of the range of vanhatkirjats (not inclusive)
+    * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+    * @return the ordered range of matching vanhatkirjats
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findByTitle(
+        java.lang.String teoknimi, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence()
+                   .findByTitle(teoknimi, start, end, orderByComparator);
+    }
+
+    /**
+    * Returns the first vanhatkirjat in the ordered set where teoknimi = &#63;.
+    *
+    * @param teoknimi the teoknimi
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the first matching vanhatkirjat
+    * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a matching vanhatkirjat could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static fi.csc.avaa.khl.db.model.Vanhatkirjat findByTitle_First(
+        java.lang.String teoknimi,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            fi.csc.avaa.khl.db.NoSuchVanhatkirjatException {
+        return getPersistence().findByTitle_First(teoknimi, orderByComparator);
+    }
+
+    /**
+    * Returns the first vanhatkirjat in the ordered set where teoknimi = &#63;.
+    *
+    * @param teoknimi the teoknimi
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the first matching vanhatkirjat, or <code>null</code> if a matching vanhatkirjat could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static fi.csc.avaa.khl.db.model.Vanhatkirjat fetchByTitle_First(
+        java.lang.String teoknimi,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().fetchByTitle_First(teoknimi, orderByComparator);
+    }
+
+    /**
+    * Returns the last vanhatkirjat in the ordered set where teoknimi = &#63;.
+    *
+    * @param teoknimi the teoknimi
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the last matching vanhatkirjat
+    * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a matching vanhatkirjat could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static fi.csc.avaa.khl.db.model.Vanhatkirjat findByTitle_Last(
+        java.lang.String teoknimi,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            fi.csc.avaa.khl.db.NoSuchVanhatkirjatException {
+        return getPersistence().findByTitle_Last(teoknimi, orderByComparator);
+    }
+
+    /**
+    * Returns the last vanhatkirjat in the ordered set where teoknimi = &#63;.
+    *
+    * @param teoknimi the teoknimi
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the last matching vanhatkirjat, or <code>null</code> if a matching vanhatkirjat could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static fi.csc.avaa.khl.db.model.Vanhatkirjat fetchByTitle_Last(
+        java.lang.String teoknimi,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().fetchByTitle_Last(teoknimi, orderByComparator);
+    }
+
+    /**
+    * Returns the vanhatkirjats before and after the current vanhatkirjat in the ordered set where teoknimi = &#63;.
+    *
+    * @param vkid the primary key of the current vanhatkirjat
+    * @param teoknimi the teoknimi
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the previous, current, and next vanhatkirjat
+    * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a vanhatkirjat with the primary key could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static fi.csc.avaa.khl.db.model.Vanhatkirjat[] findByTitle_PrevAndNext(
+        int vkid, java.lang.String teoknimi,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            fi.csc.avaa.khl.db.NoSuchVanhatkirjatException {
+        return getPersistence()
+                   .findByTitle_PrevAndNext(vkid, teoknimi, orderByComparator);
+    }
+
+    /**
+    * Removes all the vanhatkirjats where teoknimi = &#63; from the database.
+    *
+    * @param teoknimi the teoknimi
+    * @throws SystemException if a system exception occurred
+    */
+    public static void removeByTitle(java.lang.String teoknimi)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        getPersistence().removeByTitle(teoknimi);
+    }
+
+    /**
+    * Returns the number of vanhatkirjats where teoknimi = &#63;.
+    *
+    * @param teoknimi the teoknimi
+    * @return the number of matching vanhatkirjats
+    * @throws SystemException if a system exception occurred
+    */
+    public static int countByTitle(java.lang.String teoknimi)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().countByTitle(teoknimi);
+    }
+
+    /**
+    * Returns all the vanhatkirjats where tekija = &#63;.
+    *
+    * @param tekija the tekija
+    * @return the matching vanhatkirjats
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findByAuthor(
+        java.lang.String tekija)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().findByAuthor(tekija);
+    }
+
+    /**
+    * Returns a range of all the vanhatkirjats where tekija = &#63;.
+    *
+    * <p>
+    * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link fi.csc.avaa.khl.db.model.impl.VanhatkirjatModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+    * </p>
+    *
+    * @param tekija the tekija
+    * @param start the lower bound of the range of vanhatkirjats
+    * @param end the upper bound of the range of vanhatkirjats (not inclusive)
+    * @return the range of matching vanhatkirjats
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findByAuthor(
+        java.lang.String tekija, int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().findByAuthor(tekija, start, end);
+    }
+
+    /**
+    * Returns an ordered range of all the vanhatkirjats where tekija = &#63;.
+    *
+    * <p>
+    * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link fi.csc.avaa.khl.db.model.impl.VanhatkirjatModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+    * </p>
+    *
+    * @param tekija the tekija
+    * @param start the lower bound of the range of vanhatkirjats
+    * @param end the upper bound of the range of vanhatkirjats (not inclusive)
+    * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+    * @return the ordered range of matching vanhatkirjats
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findByAuthor(
+        java.lang.String tekija, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence()
+                   .findByAuthor(tekija, start, end, orderByComparator);
+    }
+
+    /**
+    * Returns the first vanhatkirjat in the ordered set where tekija = &#63;.
+    *
+    * @param tekija the tekija
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the first matching vanhatkirjat
+    * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a matching vanhatkirjat could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static fi.csc.avaa.khl.db.model.Vanhatkirjat findByAuthor_First(
+        java.lang.String tekija,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            fi.csc.avaa.khl.db.NoSuchVanhatkirjatException {
+        return getPersistence().findByAuthor_First(tekija, orderByComparator);
+    }
+
+    /**
+    * Returns the first vanhatkirjat in the ordered set where tekija = &#63;.
+    *
+    * @param tekija the tekija
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the first matching vanhatkirjat, or <code>null</code> if a matching vanhatkirjat could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static fi.csc.avaa.khl.db.model.Vanhatkirjat fetchByAuthor_First(
+        java.lang.String tekija,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().fetchByAuthor_First(tekija, orderByComparator);
+    }
+
+    /**
+    * Returns the last vanhatkirjat in the ordered set where tekija = &#63;.
+    *
+    * @param tekija the tekija
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the last matching vanhatkirjat
+    * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a matching vanhatkirjat could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static fi.csc.avaa.khl.db.model.Vanhatkirjat findByAuthor_Last(
+        java.lang.String tekija,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            fi.csc.avaa.khl.db.NoSuchVanhatkirjatException {
+        return getPersistence().findByAuthor_Last(tekija, orderByComparator);
+    }
+
+    /**
+    * Returns the last vanhatkirjat in the ordered set where tekija = &#63;.
+    *
+    * @param tekija the tekija
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the last matching vanhatkirjat, or <code>null</code> if a matching vanhatkirjat could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static fi.csc.avaa.khl.db.model.Vanhatkirjat fetchByAuthor_Last(
+        java.lang.String tekija,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().fetchByAuthor_Last(tekija, orderByComparator);
+    }
+
+    /**
+    * Returns the vanhatkirjats before and after the current vanhatkirjat in the ordered set where tekija = &#63;.
+    *
+    * @param vkid the primary key of the current vanhatkirjat
+    * @param tekija the tekija
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the previous, current, and next vanhatkirjat
+    * @throws fi.csc.avaa.khl.db.NoSuchVanhatkirjatException if a vanhatkirjat with the primary key could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static fi.csc.avaa.khl.db.model.Vanhatkirjat[] findByAuthor_PrevAndNext(
+        int vkid, java.lang.String tekija,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            fi.csc.avaa.khl.db.NoSuchVanhatkirjatException {
+        return getPersistence()
+                   .findByAuthor_PrevAndNext(vkid, tekija, orderByComparator);
+    }
+
+    /**
+    * Removes all the vanhatkirjats where tekija = &#63; from the database.
+    *
+    * @param tekija the tekija
+    * @throws SystemException if a system exception occurred
+    */
+    public static void removeByAuthor(java.lang.String tekija)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        getPersistence().removeByAuthor(tekija);
+    }
+
+    /**
+    * Returns the number of vanhatkirjats where tekija = &#63;.
+    *
+    * @param tekija the tekija
+    * @return the number of matching vanhatkirjats
+    * @throws SystemException if a system exception occurred
+    */
+    public static int countByAuthor(java.lang.String tekija)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().countByAuthor(tekija);
+    }
+
+    /**
     * Caches the vanhatkirjat in the entity cache if it is enabled.
     *
     * @param vanhatkirjat the vanhatkirjat

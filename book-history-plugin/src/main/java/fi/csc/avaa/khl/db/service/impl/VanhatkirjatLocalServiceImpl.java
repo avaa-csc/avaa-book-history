@@ -25,6 +25,13 @@ public class VanhatkirjatLocalServiceImpl
      *
      * Never reference this interface directly. Always use {@link fi.csc.avaa.khl.db.service.VanhatkirjatLocalServiceUtil} to access the vanhatkirjat local service.
      */
+	public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByTitle(String title) throws com.liferay.portal.kernel.exception.SystemException {
+		return VanhatkirjatUtil.findByTitle(title);
+	}
+
+	public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByAuthor(String author) throws com.liferay.portal.kernel.exception.SystemException {
+		return VanhatkirjatUtil.findByAuthor(author);
+	}
 	
 	public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByPublishStatus(int status) throws com.liferay.portal.kernel.exception.SystemException {
 		return VanhatkirjatUtil.findByPublishStatus(status);

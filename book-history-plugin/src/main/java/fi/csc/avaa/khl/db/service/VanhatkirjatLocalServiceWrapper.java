@@ -272,6 +272,20 @@ public class VanhatkirjatLocalServiceWrapper implements VanhatkirjatLocalService
     }
 
     @Override
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByTitle(
+        java.lang.String title)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _vanhatkirjatLocalService.findAllByTitle(title);
+    }
+
+    @Override
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByAuthor(
+        java.lang.String author)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _vanhatkirjatLocalService.findAllByAuthor(author);
+    }
+
+    @Override
     public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByPublishStatus(
         int status) throws com.liferay.portal.kernel.exception.SystemException {
         return _vanhatkirjatLocalService.findAllByPublishStatus(status);

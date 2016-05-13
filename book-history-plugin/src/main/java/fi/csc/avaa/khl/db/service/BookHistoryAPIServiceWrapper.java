@@ -47,8 +47,30 @@ public class BookHistoryAPIServiceWrapper implements BookHistoryAPIService,
     }
 
     @Override
-    public java.lang.String getHelloWorld() {
-        return _bookHistoryAPIService.getHelloWorld();
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitleAuthorFromYearPublisedToYearPublished(
+        java.lang.String bookTitle, java.lang.String bookAuthor,
+        int fromYearPublished, int toYearPublished) {
+        return _bookHistoryAPIService.getBooksByTitleAuthorFromYearPublisedToYearPublished(bookTitle,
+            bookAuthor, fromYearPublished, toYearPublished);
+    }
+
+    @Override
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitle(
+        java.lang.String bookTitle) {
+        return _bookHistoryAPIService.getBooksByTitle(bookTitle);
+    }
+
+    @Override
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByAuthor(
+        java.lang.String bookAuthor) {
+        return _bookHistoryAPIService.getBooksByAuthor(bookAuthor);
+    }
+
+    @Override
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByFromYearPublisedToYearPublished(
+        int fromYearPublished, int toYearPublished) {
+        return _bookHistoryAPIService.getBooksByFromYearPublisedToYearPublished(fromYearPublished,
+            toYearPublished);
     }
 
     /**

@@ -101,7 +101,9 @@ public class VanhatkirjatModelImpl extends BaseModelImpl<Vanhatkirjat>
                 "value.object.column.bitmask.enabled.fi.csc.avaa.khl.db.model.Vanhatkirjat"),
             true);
     public static long STATUS_COLUMN_BITMASK = 1L;
-    public static long VKID_COLUMN_BITMASK = 2L;
+    public static long TEKIJA_COLUMN_BITMASK = 2L;
+    public static long TEOKNIMI_COLUMN_BITMASK = 4L;
+    public static long VKID_COLUMN_BITMASK = 8L;
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
                 "lock.expiration.time.fi.csc.avaa.khl.db.model.Vanhatkirjat"));
     private static ClassLoader _classLoader = Vanhatkirjat.class.getClassLoader();
@@ -115,7 +117,9 @@ public class VanhatkirjatModelImpl extends BaseModelImpl<Vanhatkirjat>
     private Date _paivays;
     private int _kartkohde;
     private String _tekija;
+    private String _originalTekija;
     private String _teoknimi;
+    private String _originalTeoknimi;
     private int _painovuosi;
     private String _painopaikka;
     private String _kirjapaino;
@@ -605,7 +609,17 @@ public class VanhatkirjatModelImpl extends BaseModelImpl<Vanhatkirjat>
 
     @Override
     public void setTekija(String tekija) {
+        _columnBitmask |= TEKIJA_COLUMN_BITMASK;
+
+        if (_originalTekija == null) {
+            _originalTekija = _tekija;
+        }
+
         _tekija = tekija;
+    }
+
+    public String getOriginalTekija() {
+        return GetterUtil.getString(_originalTekija);
     }
 
     @JSON
@@ -620,7 +634,17 @@ public class VanhatkirjatModelImpl extends BaseModelImpl<Vanhatkirjat>
 
     @Override
     public void setTeoknimi(String teoknimi) {
+        _columnBitmask |= TEOKNIMI_COLUMN_BITMASK;
+
+        if (_originalTeoknimi == null) {
+            _originalTeoknimi = _teoknimi;
+        }
+
         _teoknimi = teoknimi;
+    }
+
+    public String getOriginalTeoknimi() {
+        return GetterUtil.getString(_originalTeoknimi);
     }
 
     @JSON
@@ -1089,6 +1113,10 @@ public class VanhatkirjatModelImpl extends BaseModelImpl<Vanhatkirjat>
     @Override
     public void resetOriginalValues() {
         VanhatkirjatModelImpl vanhatkirjatModelImpl = this;
+
+        vanhatkirjatModelImpl._originalTekija = vanhatkirjatModelImpl._tekija;
+
+        vanhatkirjatModelImpl._originalTeoknimi = vanhatkirjatModelImpl._teoknimi;
 
         vanhatkirjatModelImpl._originalStatus = vanhatkirjatModelImpl._status;
 

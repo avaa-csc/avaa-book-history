@@ -48,6 +48,10 @@ public class VanhatkirjatLocalServiceClp implements VanhatkirjatLocalService {
     private String[] _methodParameterTypes19;
     private String _methodName20;
     private String[] _methodParameterTypes20;
+    private String _methodName21;
+    private String[] _methodParameterTypes21;
+    private String _methodName22;
+    private String[] _methodParameterTypes22;
 
     public VanhatkirjatLocalServiceClp(
         InvokableLocalService invokableLocalService) {
@@ -143,13 +147,21 @@ public class VanhatkirjatLocalServiceClp implements VanhatkirjatLocalService {
 
         _methodParameterTypes17 = new String[] { "java.lang.String" };
 
-        _methodName19 = "findAllByPublishStatus";
+        _methodName19 = "findAllByTitle";
 
-        _methodParameterTypes19 = new String[] { "int" };
+        _methodParameterTypes19 = new String[] { "java.lang.String" };
 
-        _methodName20 = "deleteAllVanhatkirjat";
+        _methodName20 = "findAllByAuthor";
 
-        _methodParameterTypes20 = new String[] {  };
+        _methodParameterTypes20 = new String[] { "java.lang.String" };
+
+        _methodName21 = "findAllByPublishStatus";
+
+        _methodParameterTypes21 = new String[] { "int" };
+
+        _methodName22 = "deleteAllVanhatkirjat";
+
+        _methodParameterTypes22 = new String[] {  };
     }
 
     @Override
@@ -663,13 +675,69 @@ public class VanhatkirjatLocalServiceClp implements VanhatkirjatLocalService {
     }
 
     @Override
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByTitle(
+        java.lang.String title)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName19,
+                    _methodParameterTypes19,
+                    new Object[] { ClpSerializer.translateInput(title) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByAuthor(
+        java.lang.String author)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName20,
+                    _methodParameterTypes20,
+                    new Object[] { ClpSerializer.translateInput(author) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
     public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByPublishStatus(
         int status) throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName19,
-                    _methodParameterTypes19, new Object[] { status });
+            returnObj = _invokableLocalService.invokeMethod(_methodName21,
+                    _methodParameterTypes21, new Object[] { status });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 
@@ -694,8 +762,8 @@ public class VanhatkirjatLocalServiceClp implements VanhatkirjatLocalService {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName20,
-                    _methodParameterTypes20, new Object[] {  });
+            returnObj = _invokableLocalService.invokeMethod(_methodName22,
+                    _methodParameterTypes22, new Object[] {  });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 
