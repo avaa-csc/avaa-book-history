@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="fi.csc.avaa.khl.db.service.BookHistoryAPIService" class="fi.csc.avaa.khl.db.service.impl.BookHistoryAPIServiceImpl" />
+	<bean id="fi.csc.avaa.khl.db.service.persistence.BookHistoryAPIPersistence" class="fi.csc.avaa.khl.db.service.persistence.BookHistoryAPIPersistenceImpl" parent="basePersistence" />
 	<bean id="fi.csc.avaa.khl.db.service.JulkaisulajiinfoLocalService" class="fi.csc.avaa.khl.db.service.impl.JulkaisulajiinfoLocalServiceImpl" />
 	<bean id="fi.csc.avaa.khl.db.service.JulkaisulajiinfoService" class="fi.csc.avaa.khl.db.service.impl.JulkaisulajiinfoServiceImpl" />
 	<bean id="fi.csc.avaa.khl.db.service.persistence.JulkaisulajiinfoPersistence" class="fi.csc.avaa.khl.db.service.persistence.JulkaisulajiinfoPersistenceImpl" parent="basePersistence">

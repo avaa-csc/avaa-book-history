@@ -2,6 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="fi.csc.avaa.khl.db.model.BookHistoryAPI" />
 	<import class="fi.csc.avaa.khl.db.model.Julkaisulajiinfo" />
 	<import class="fi.csc.avaa.khl.db.model.Kartoituskohde" />
 	<import class="fi.csc.avaa.khl.db.model.Kielesta" />
@@ -13,6 +14,12 @@
 	<import class="fi.csc.avaa.khl.db.model.Sidottu" />
 	<import class="fi.csc.avaa.khl.db.model.Teospk" />
 	<import class="fi.csc.avaa.khl.db.model.Vanhatkirjat" />
+	<class name="fi.csc.avaa.khl.db.model.impl.BookHistoryAPIImpl" table="khl_BookHistoryAPI">
+		<cache usage="read-write" />
+		<id name="name" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+	</class>
 	<class name="fi.csc.avaa.khl.db.model.impl.JulkaisulajiinfoImpl" table="julklajiinfo">
 		<cache usage="read-write" />
 		<id name="julklajiid" type="int">

@@ -109,19 +109,19 @@ public interface KuntoluokitusModel extends BaseModel<Kuntoluokitus> {
     public Object clone();
 
     @Override
-    public int compareTo(Kuntoluokitus kuntoluokitus);
+    public int compareTo(fi.csc.avaa.khl.db.model.Kuntoluokitus kuntoluokitus);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Kuntoluokitus> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Kuntoluokitus> toCacheModel();
 
     @Override
-    public Kuntoluokitus toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Kuntoluokitus toEscapedModel();
 
     @Override
-    public Kuntoluokitus toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Kuntoluokitus toUnescapedModel();
 
     @Override
     public String toString();

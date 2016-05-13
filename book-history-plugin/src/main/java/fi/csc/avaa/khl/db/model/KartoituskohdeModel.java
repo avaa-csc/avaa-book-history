@@ -123,19 +123,19 @@ public interface KartoituskohdeModel extends BaseModel<Kartoituskohde> {
     public Object clone();
 
     @Override
-    public int compareTo(Kartoituskohde kartoituskohde);
+    public int compareTo(fi.csc.avaa.khl.db.model.Kartoituskohde kartoituskohde);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Kartoituskohde> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Kartoituskohde> toCacheModel();
 
     @Override
-    public Kartoituskohde toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Kartoituskohde toEscapedModel();
 
     @Override
-    public Kartoituskohde toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Kartoituskohde toUnescapedModel();
 
     @Override
     public String toString();

@@ -109,19 +109,19 @@ public interface KielestaModel extends BaseModel<Kielesta> {
     public Object clone();
 
     @Override
-    public int compareTo(Kielesta kielesta);
+    public int compareTo(fi.csc.avaa.khl.db.model.Kielesta kielesta);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Kielesta> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Kielesta> toCacheModel();
 
     @Override
-    public Kielesta toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Kielesta toEscapedModel();
 
     @Override
-    public Kielesta toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Kielesta toUnescapedModel();
 
     @Override
     public String toString();

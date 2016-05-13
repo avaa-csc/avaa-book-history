@@ -181,19 +181,19 @@ public interface KuntainfoModel extends BaseModel<Kuntainfo> {
     public Object clone();
 
     @Override
-    public int compareTo(Kuntainfo kuntainfo);
+    public int compareTo(fi.csc.avaa.khl.db.model.Kuntainfo kuntainfo);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Kuntainfo> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Kuntainfo> toCacheModel();
 
     @Override
-    public Kuntainfo toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Kuntainfo toEscapedModel();
 
     @Override
-    public Kuntainfo toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Kuntainfo toUnescapedModel();
 
     @Override
     public String toString();

@@ -109,19 +109,20 @@ public interface JulkaisulajiinfoModel extends BaseModel<Julkaisulajiinfo> {
     public Object clone();
 
     @Override
-    public int compareTo(Julkaisulajiinfo julkaisulajiinfo);
+    public int compareTo(
+        fi.csc.avaa.khl.db.model.Julkaisulajiinfo julkaisulajiinfo);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Julkaisulajiinfo> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Julkaisulajiinfo> toCacheModel();
 
     @Override
-    public Julkaisulajiinfo toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Julkaisulajiinfo toEscapedModel();
 
     @Override
-    public Julkaisulajiinfo toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Julkaisulajiinfo toUnescapedModel();
 
     @Override
     public String toString();

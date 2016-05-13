@@ -109,19 +109,19 @@ public interface TeospkModel extends BaseModel<Teospk> {
     public Object clone();
 
     @Override
-    public int compareTo(Teospk teospk);
+    public int compareTo(fi.csc.avaa.khl.db.model.Teospk teospk);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Teospk> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Teospk> toCacheModel();
 
     @Override
-    public Teospk toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Teospk toEscapedModel();
 
     @Override
-    public Teospk toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Teospk toUnescapedModel();
 
     @Override
     public String toString();

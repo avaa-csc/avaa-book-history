@@ -3,6 +3,7 @@ package fi.csc.avaa.khl.db.service.messaging;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 
+import fi.csc.avaa.khl.db.service.BookHistoryAPIServiceUtil;
 import fi.csc.avaa.khl.db.service.ClpSerializer;
 import fi.csc.avaa.khl.db.service.JulkaisulajiinfoLocalServiceUtil;
 import fi.csc.avaa.khl.db.service.JulkaisulajiinfoServiceUtil;
@@ -40,6 +41,7 @@ public class ClpMessageListener extends BaseMessageListener {
 
         if (command.equals("undeploy") &&
                 servletContextName.equals(getServletContextName())) {
+            BookHistoryAPIServiceUtil.clearService();
             JulkaisulajiinfoLocalServiceUtil.clearService();
 
             JulkaisulajiinfoServiceUtil.clearService();

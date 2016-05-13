@@ -611,19 +611,19 @@ public interface VanhatkirjatModel extends BaseModel<Vanhatkirjat> {
     public Object clone();
 
     @Override
-    public int compareTo(Vanhatkirjat vanhatkirjat);
+    public int compareTo(fi.csc.avaa.khl.db.model.Vanhatkirjat vanhatkirjat);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Vanhatkirjat> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Vanhatkirjat> toCacheModel();
 
     @Override
-    public Vanhatkirjat toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Vanhatkirjat toEscapedModel();
 
     @Override
-    public Vanhatkirjat toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Vanhatkirjat toUnescapedModel();
 
     @Override
     public String toString();

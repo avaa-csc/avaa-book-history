@@ -19,6 +19,7 @@ import com.liferay.portal.service.persistence.UserPersistence;
 
 import fi.csc.avaa.khl.db.model.Kuntainfo;
 import fi.csc.avaa.khl.db.service.KuntainfoLocalService;
+import fi.csc.avaa.khl.db.service.persistence.BookHistoryAPIPersistence;
 import fi.csc.avaa.khl.db.service.persistence.JulkaisulajiinfoPersistence;
 import fi.csc.avaa.khl.db.service.persistence.KartoituskohdePersistence;
 import fi.csc.avaa.khl.db.service.persistence.KielestaPersistence;
@@ -52,6 +53,10 @@ import javax.sql.DataSource;
  */
 public abstract class KuntainfoLocalServiceBaseImpl extends BaseLocalServiceImpl
     implements KuntainfoLocalService, IdentifiableBean {
+    @BeanReference(type = fi.csc.avaa.khl.db.service.BookHistoryAPIService.class)
+    protected fi.csc.avaa.khl.db.service.BookHistoryAPIService bookHistoryAPIService;
+    @BeanReference(type = BookHistoryAPIPersistence.class)
+    protected BookHistoryAPIPersistence bookHistoryAPIPersistence;
     @BeanReference(type = fi.csc.avaa.khl.db.service.JulkaisulajiinfoLocalService.class)
     protected fi.csc.avaa.khl.db.service.JulkaisulajiinfoLocalService julkaisulajiinfoLocalService;
     @BeanReference(type = fi.csc.avaa.khl.db.service.JulkaisulajiinfoService.class)
@@ -355,6 +360,44 @@ public abstract class KuntainfoLocalServiceBaseImpl extends BaseLocalServiceImpl
     public Kuntainfo updateKuntainfo(Kuntainfo kuntainfo)
         throws SystemException {
         return kuntainfoPersistence.update(kuntainfo);
+    }
+
+    /**
+     * Returns the book history a p i remote service.
+     *
+     * @return the book history a p i remote service
+     */
+    public fi.csc.avaa.khl.db.service.BookHistoryAPIService getBookHistoryAPIService() {
+        return bookHistoryAPIService;
+    }
+
+    /**
+     * Sets the book history a p i remote service.
+     *
+     * @param bookHistoryAPIService the book history a p i remote service
+     */
+    public void setBookHistoryAPIService(
+        fi.csc.avaa.khl.db.service.BookHistoryAPIService bookHistoryAPIService) {
+        this.bookHistoryAPIService = bookHistoryAPIService;
+    }
+
+    /**
+     * Returns the book history a p i persistence.
+     *
+     * @return the book history a p i persistence
+     */
+    public BookHistoryAPIPersistence getBookHistoryAPIPersistence() {
+        return bookHistoryAPIPersistence;
+    }
+
+    /**
+     * Sets the book history a p i persistence.
+     *
+     * @param bookHistoryAPIPersistence the book history a p i persistence
+     */
+    public void setBookHistoryAPIPersistence(
+        BookHistoryAPIPersistence bookHistoryAPIPersistence) {
+        this.bookHistoryAPIPersistence = bookHistoryAPIPersistence;
     }
 
     /**

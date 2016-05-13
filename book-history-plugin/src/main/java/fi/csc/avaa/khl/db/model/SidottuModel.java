@@ -109,19 +109,19 @@ public interface SidottuModel extends BaseModel<Sidottu> {
     public Object clone();
 
     @Override
-    public int compareTo(Sidottu sidottu);
+    public int compareTo(fi.csc.avaa.khl.db.model.Sidottu sidottu);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Sidottu> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Sidottu> toCacheModel();
 
     @Override
-    public Sidottu toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Sidottu toEscapedModel();
 
     @Override
-    public Sidottu toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Sidottu toUnescapedModel();
 
     @Override
     public String toString();

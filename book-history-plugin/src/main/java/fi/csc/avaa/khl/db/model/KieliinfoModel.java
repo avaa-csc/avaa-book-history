@@ -109,19 +109,19 @@ public interface KieliinfoModel extends BaseModel<Kieliinfo> {
     public Object clone();
 
     @Override
-    public int compareTo(Kieliinfo kieliinfo);
+    public int compareTo(fi.csc.avaa.khl.db.model.Kieliinfo kieliinfo);
 
     @Override
     public int hashCode();
 
     @Override
-    public CacheModel<Kieliinfo> toCacheModel();
+    public CacheModel<fi.csc.avaa.khl.db.model.Kieliinfo> toCacheModel();
 
     @Override
-    public Kieliinfo toEscapedModel();
+    public fi.csc.avaa.khl.db.model.Kieliinfo toEscapedModel();
 
     @Override
-    public Kieliinfo toUnescapedModel();
+    public fi.csc.avaa.khl.db.model.Kieliinfo toUnescapedModel();
 
     @Override
     public String toString();
