@@ -237,6 +237,9 @@ public interface VanhatkirjatLocalService extends BaseLocalService,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
 
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByPublishStatus(
+        int status) throws com.liferay.portal.kernel.exception.SystemException;
+
     public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByTitle(
         java.lang.String title)
         throws com.liferay.portal.kernel.exception.SystemException;
@@ -244,9 +247,6 @@ public interface VanhatkirjatLocalService extends BaseLocalService,
     public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByAuthor(
         java.lang.String author)
         throws com.liferay.portal.kernel.exception.SystemException;
-
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByPublishStatus(
-        int status) throws com.liferay.portal.kernel.exception.SystemException;
 
     public boolean deleteAllVanhatkirjat()
         throws com.liferay.portal.kernel.exception.SystemException;

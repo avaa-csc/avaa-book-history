@@ -10,7 +10,7 @@ import com.liferay.portal.security.ac.AccessControlled;
 import com.liferay.portal.service.BaseService;
 import com.liferay.portal.service.InvokableService;
 
-import fi.csc.avaa.khl.common.DBTools.*;
+import fi.csc.avaa.khl.db.service.VanhatkirjatLocalServiceUtil.*;
 
 /**
  * Provides the remote service interface for BookHistoryAPI. Methods of this
@@ -57,25 +57,28 @@ public interface BookHistoryAPIService extends BaseService, InvokableService {
     @com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
     @com.liferay.portal.kernel.jsonwebservice.JSONWebService(value = "getBooksByTitleAuthorPublishedYears")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitleAuthorFromYearPublisedToYearPublished(
+    public java.lang.String getBooksByTitleAuthorFromYearPublisedToYearPublished(
         java.lang.String bookTitle, java.lang.String bookAuthor,
         int fromYearPublished, int toYearPublished);
 
     @com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
     @com.liferay.portal.kernel.jsonwebservice.JSONWebService(value = "getBooksByTitle")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitle(
-        java.lang.String bookTitle);
+    public java.lang.String getBooksByTitle(java.lang.String bookTitle);
 
     @com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
     @com.liferay.portal.kernel.jsonwebservice.JSONWebService(value = "getBooksByAuthor")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByAuthor(
-        java.lang.String bookAuthor);
+    public java.lang.String getBooksByAuthor(java.lang.String bookAuthor);
 
     @com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
     @com.liferay.portal.kernel.jsonwebservice.JSONWebService(value = "getBooksByPublishedYears")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByFromYearPublisedToYearPublished(
+    public java.lang.String getBooksByFromYearPublisedToYearPublished(
         int fromYearPublished, int toYearPublished);
+
+    @com.liferay.portal.security.ac.AccessControlled(guestAccessEnabled = true)
+    @com.liferay.portal.kernel.jsonwebservice.JSONWebService(value = "getAllBooks")
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.lang.String getAllBooks();
 }

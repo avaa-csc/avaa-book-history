@@ -47,7 +47,7 @@ public class BookHistoryAPIServiceWrapper implements BookHistoryAPIService,
     }
 
     @Override
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitleAuthorFromYearPublisedToYearPublished(
+    public java.lang.String getBooksByTitleAuthorFromYearPublisedToYearPublished(
         java.lang.String bookTitle, java.lang.String bookAuthor,
         int fromYearPublished, int toYearPublished) {
         return _bookHistoryAPIService.getBooksByTitleAuthorFromYearPublisedToYearPublished(bookTitle,
@@ -55,22 +55,25 @@ public class BookHistoryAPIServiceWrapper implements BookHistoryAPIService,
     }
 
     @Override
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitle(
-        java.lang.String bookTitle) {
+    public java.lang.String getBooksByTitle(java.lang.String bookTitle) {
         return _bookHistoryAPIService.getBooksByTitle(bookTitle);
     }
 
     @Override
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByAuthor(
-        java.lang.String bookAuthor) {
+    public java.lang.String getBooksByAuthor(java.lang.String bookAuthor) {
         return _bookHistoryAPIService.getBooksByAuthor(bookAuthor);
     }
 
     @Override
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByFromYearPublisedToYearPublished(
+    public java.lang.String getBooksByFromYearPublisedToYearPublished(
         int fromYearPublished, int toYearPublished) {
         return _bookHistoryAPIService.getBooksByFromYearPublisedToYearPublished(fromYearPublished,
             toYearPublished);
+    }
+
+    @Override
+    public java.lang.String getAllBooks() {
+        return _bookHistoryAPIService.getAllBooks();
     }
 
     /**

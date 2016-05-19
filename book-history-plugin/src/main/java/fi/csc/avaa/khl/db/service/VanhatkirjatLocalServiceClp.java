@@ -147,17 +147,17 @@ public class VanhatkirjatLocalServiceClp implements VanhatkirjatLocalService {
 
         _methodParameterTypes17 = new String[] { "java.lang.String" };
 
-        _methodName19 = "findAllByTitle";
+        _methodName19 = "findAllByPublishStatus";
 
-        _methodParameterTypes19 = new String[] { "java.lang.String" };
+        _methodParameterTypes19 = new String[] { "int" };
 
-        _methodName20 = "findAllByAuthor";
+        _methodName20 = "findAllByTitle";
 
         _methodParameterTypes20 = new String[] { "java.lang.String" };
 
-        _methodName21 = "findAllByPublishStatus";
+        _methodName21 = "findAllByAuthor";
 
-        _methodParameterTypes21 = new String[] { "int" };
+        _methodParameterTypes21 = new String[] { "java.lang.String" };
 
         _methodName22 = "deleteAllVanhatkirjat";
 
@@ -675,14 +675,40 @@ public class VanhatkirjatLocalServiceClp implements VanhatkirjatLocalService {
     }
 
     @Override
+    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByPublishStatus(
+        int status) throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName19,
+                    _methodParameterTypes19, new Object[] { status });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
     public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByTitle(
         java.lang.String title)
         throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName19,
-                    _methodParameterTypes19,
+            returnObj = _invokableLocalService.invokeMethod(_methodName20,
+                    _methodParameterTypes20,
                     new Object[] { ClpSerializer.translateInput(title) });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
@@ -709,35 +735,9 @@ public class VanhatkirjatLocalServiceClp implements VanhatkirjatLocalService {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName20,
-                    _methodParameterTypes20,
-                    new Object[] { ClpSerializer.translateInput(author) });
-        } catch (Throwable t) {
-            t = ClpSerializer.translateThrowable(t);
-
-            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-                throw (com.liferay.portal.kernel.exception.SystemException) t;
-            }
-
-            if (t instanceof RuntimeException) {
-                throw (RuntimeException) t;
-            } else {
-                throw new RuntimeException(t.getClass().getName() +
-                    " is not a valid exception");
-            }
-        }
-
-        return (java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat>) ClpSerializer.translateOutput(returnObj);
-    }
-
-    @Override
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByPublishStatus(
-        int status) throws com.liferay.portal.kernel.exception.SystemException {
-        Object returnObj = null;
-
-        try {
             returnObj = _invokableLocalService.invokeMethod(_methodName21,
-                    _methodParameterTypes21, new Object[] { status });
+                    _methodParameterTypes21,
+                    new Object[] { ClpSerializer.translateInput(author) });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 

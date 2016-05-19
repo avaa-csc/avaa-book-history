@@ -20,6 +20,8 @@ public class BookHistoryAPIServiceClp implements BookHistoryAPIService {
     private String[] _methodParameterTypes5;
     private String _methodName6;
     private String[] _methodParameterTypes6;
+    private String _methodName7;
+    private String[] _methodParameterTypes7;
 
     public BookHistoryAPIServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -49,6 +51,10 @@ public class BookHistoryAPIServiceClp implements BookHistoryAPIService {
         _methodName6 = "getBooksByFromYearPublisedToYearPublished";
 
         _methodParameterTypes6 = new String[] { "int", "int" };
+
+        _methodName7 = "getAllBooks";
+
+        _methodParameterTypes7 = new String[] {  };
     }
 
     @Override
@@ -98,7 +104,7 @@ public class BookHistoryAPIServiceClp implements BookHistoryAPIService {
     }
 
     @Override
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitleAuthorFromYearPublisedToYearPublished(
+    public java.lang.String getBooksByTitleAuthorFromYearPublisedToYearPublished(
         java.lang.String bookTitle, java.lang.String bookAuthor,
         int fromYearPublished, int toYearPublished) {
         Object returnObj = null;
@@ -126,12 +132,11 @@ public class BookHistoryAPIServiceClp implements BookHistoryAPIService {
             }
         }
 
-        return (java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat>) ClpSerializer.translateOutput(returnObj);
+        return (java.lang.String) ClpSerializer.translateOutput(returnObj);
     }
 
     @Override
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByTitle(
-        java.lang.String bookTitle) {
+    public java.lang.String getBooksByTitle(java.lang.String bookTitle) {
         Object returnObj = null;
 
         try {
@@ -149,12 +154,11 @@ public class BookHistoryAPIServiceClp implements BookHistoryAPIService {
             }
         }
 
-        return (java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat>) ClpSerializer.translateOutput(returnObj);
+        return (java.lang.String) ClpSerializer.translateOutput(returnObj);
     }
 
     @Override
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByAuthor(
-        java.lang.String bookAuthor) {
+    public java.lang.String getBooksByAuthor(java.lang.String bookAuthor) {
         Object returnObj = null;
 
         try {
@@ -172,11 +176,11 @@ public class BookHistoryAPIServiceClp implements BookHistoryAPIService {
             }
         }
 
-        return (java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat>) ClpSerializer.translateOutput(returnObj);
+        return (java.lang.String) ClpSerializer.translateOutput(returnObj);
     }
 
     @Override
-    public java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> getBooksByFromYearPublisedToYearPublished(
+    public java.lang.String getBooksByFromYearPublisedToYearPublished(
         int fromYearPublished, int toYearPublished) {
         Object returnObj = null;
 
@@ -195,6 +199,27 @@ public class BookHistoryAPIServiceClp implements BookHistoryAPIService {
             }
         }
 
-        return (java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat>) ClpSerializer.translateOutput(returnObj);
+        return (java.lang.String) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public java.lang.String getAllBooks() {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName7,
+                    _methodParameterTypes7, new Object[] {  });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.lang.String) ClpSerializer.translateOutput(returnObj);
     }
 }

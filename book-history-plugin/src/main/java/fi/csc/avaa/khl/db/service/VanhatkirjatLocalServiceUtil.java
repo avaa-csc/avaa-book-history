@@ -262,6 +262,11 @@ public class VanhatkirjatLocalServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByPublishStatus(
+        int status) throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().findAllByPublishStatus(status);
+    }
+
     public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByTitle(
         java.lang.String title)
         throws com.liferay.portal.kernel.exception.SystemException {
@@ -272,11 +277,6 @@ public class VanhatkirjatLocalServiceUtil {
         java.lang.String author)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getService().findAllByAuthor(author);
-    }
-
-    public static java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> findAllByPublishStatus(
-        int status) throws com.liferay.portal.kernel.exception.SystemException {
-        return getService().findAllByPublishStatus(status);
     }
 
     public static boolean deleteAllVanhatkirjat()

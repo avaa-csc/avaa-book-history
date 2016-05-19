@@ -50,14 +50,14 @@ import java.rmi.RemoteException;
 public class BookHistoryAPIServiceSoap {
     private static Log _log = LogFactoryUtil.getLog(BookHistoryAPIServiceSoap.class);
 
-    public static fi.csc.avaa.khl.db.model.VanhatkirjatSoap[] getBooksByTitleAuthorFromYearPublisedToYearPublished(
+    public static java.lang.String getBooksByTitleAuthorFromYearPublisedToYearPublished(
         java.lang.String bookTitle, java.lang.String bookAuthor,
         int fromYearPublished, int toYearPublished) throws RemoteException {
         try {
-            java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> returnValue = BookHistoryAPIServiceUtil.getBooksByTitleAuthorFromYearPublisedToYearPublished(bookTitle,
+            java.lang.String returnValue = BookHistoryAPIServiceUtil.getBooksByTitleAuthorFromYearPublisedToYearPublished(bookTitle,
                     bookAuthor, fromYearPublished, toYearPublished);
 
-            return fi.csc.avaa.khl.db.model.VanhatkirjatSoap.toSoapModels(returnValue);
+            return returnValue;
         } catch (Exception e) {
             _log.error(e, e);
 
@@ -65,12 +65,12 @@ public class BookHistoryAPIServiceSoap {
         }
     }
 
-    public static fi.csc.avaa.khl.db.model.VanhatkirjatSoap[] getBooksByTitle(
-        java.lang.String bookTitle) throws RemoteException {
+    public static java.lang.String getBooksByTitle(java.lang.String bookTitle)
+        throws RemoteException {
         try {
-            java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> returnValue = BookHistoryAPIServiceUtil.getBooksByTitle(bookTitle);
+            java.lang.String returnValue = BookHistoryAPIServiceUtil.getBooksByTitle(bookTitle);
 
-            return fi.csc.avaa.khl.db.model.VanhatkirjatSoap.toSoapModels(returnValue);
+            return returnValue;
         } catch (Exception e) {
             _log.error(e, e);
 
@@ -78,12 +78,12 @@ public class BookHistoryAPIServiceSoap {
         }
     }
 
-    public static fi.csc.avaa.khl.db.model.VanhatkirjatSoap[] getBooksByAuthor(
-        java.lang.String bookAuthor) throws RemoteException {
+    public static java.lang.String getBooksByAuthor(java.lang.String bookAuthor)
+        throws RemoteException {
         try {
-            java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> returnValue = BookHistoryAPIServiceUtil.getBooksByAuthor(bookAuthor);
+            java.lang.String returnValue = BookHistoryAPIServiceUtil.getBooksByAuthor(bookAuthor);
 
-            return fi.csc.avaa.khl.db.model.VanhatkirjatSoap.toSoapModels(returnValue);
+            return returnValue;
         } catch (Exception e) {
             _log.error(e, e);
 
@@ -91,13 +91,25 @@ public class BookHistoryAPIServiceSoap {
         }
     }
 
-    public static fi.csc.avaa.khl.db.model.VanhatkirjatSoap[] getBooksByFromYearPublisedToYearPublished(
+    public static java.lang.String getBooksByFromYearPublisedToYearPublished(
         int fromYearPublished, int toYearPublished) throws RemoteException {
         try {
-            java.util.List<fi.csc.avaa.khl.db.model.Vanhatkirjat> returnValue = BookHistoryAPIServiceUtil.getBooksByFromYearPublisedToYearPublished(fromYearPublished,
+            java.lang.String returnValue = BookHistoryAPIServiceUtil.getBooksByFromYearPublisedToYearPublished(fromYearPublished,
                     toYearPublished);
 
-            return fi.csc.avaa.khl.db.model.VanhatkirjatSoap.toSoapModels(returnValue);
+            return returnValue;
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String getAllBooks() throws RemoteException {
+        try {
+            java.lang.String returnValue = BookHistoryAPIServiceUtil.getAllBooks();
+
+            return returnValue;
         } catch (Exception e) {
             _log.error(e, e);
 

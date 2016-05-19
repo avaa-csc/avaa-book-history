@@ -21,6 +21,20 @@ public class BookHistoryAPIServiceClpInvoker {
     private String[] _methodParameterTypes92;
     private String _methodName93;
     private String[] _methodParameterTypes93;
+    private String _methodName94;
+    private String[] _methodParameterTypes94;
+    private String _methodName95;
+    private String[] _methodParameterTypes95;
+    private String _methodName96;
+    private String[] _methodParameterTypes96;
+    private String _methodName97;
+    private String[] _methodParameterTypes97;
+    private String _methodName98;
+    private String[] _methodParameterTypes98;
+    private String _methodName99;
+    private String[] _methodParameterTypes99;
+    private String _methodName100;
+    private String[] _methodParameterTypes100;
 
     public BookHistoryAPIServiceClpInvoker() {
         _methodName84 = "getBeanIdentifier";
@@ -48,6 +62,36 @@ public class BookHistoryAPIServiceClpInvoker {
         _methodName93 = "getBooksByFromYearPublisedToYearPublished";
 
         _methodParameterTypes93 = new String[] { "int", "int" };
+
+        _methodName94 = "getAllBooks";
+
+        _methodParameterTypes94 = new String[] {  };
+
+        _methodName95 = "getVanhatKirjatByTitleAuthorFromYearPublisedToYearPublished";
+
+        _methodParameterTypes95 = new String[] {
+                "java.lang.String", "java.lang.String", "int", "int"
+            };
+
+        _methodName96 = "getVanhatKirjatByTitle";
+
+        _methodParameterTypes96 = new String[] { "java.lang.String" };
+
+        _methodName97 = "getVanhatKirjatByAuthor";
+
+        _methodParameterTypes97 = new String[] { "java.lang.String" };
+
+        _methodName98 = "getVanhatKirjatByFromYearPublisedToYearPublished";
+
+        _methodParameterTypes98 = new String[] { "int", "int" };
+
+        _methodName99 = "getAllVanhatkirjat";
+
+        _methodParameterTypes99 = new String[] {  };
+
+        _methodName100 = "getVanhatKirjatToGson";
+
+        _methodParameterTypes100 = new String[] { "java.util.List" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -88,6 +132,10 @@ public class BookHistoryAPIServiceClpInvoker {
                 ((Integer) arguments[1]).intValue());
         }
 
+        if (_methodName94.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+            return BookHistoryAPIServiceUtil.getAllBooks();
+        }
         throw new UnsupportedOperationException();
     }
 }
