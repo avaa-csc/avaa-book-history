@@ -98,10 +98,12 @@ public class KirjakartoitusPublicGrid extends KirjakartoitusBaseGrid {
 					container.addBean(gridItem);
 				}
 			}
+			setSelectionMode(SelectionMode.SINGLE);
 			setGridHeightInRows(30);
 			setVisible(true);
 			return true;
 		}
+		setSelectionMode(SelectionMode.SINGLE);
 		setVisible(false);
 		return false;
 	}

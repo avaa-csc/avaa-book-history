@@ -105,6 +105,7 @@ public class KirjakartoitusAdminAddedModifiedGrid extends KirjakartoitusBaseGrid
 				container.addBean(gridItem);
 			}
 		}
+		setSelectionMode(SelectionMode.SINGLE);
 		if(wrapperContainer.size() > 0) {
 			setGridHeightInRows(30);
 			setVisible(true);

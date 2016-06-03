@@ -145,6 +145,7 @@ public class KirjakartoitusAdminModifyGrid extends KirjakartoitusBaseGrid {
 				cvksInGrid.add(book);
 			}
 		}
+		setSelectionMode(SelectionMode.SINGLE);
 		if(wrapperContainer.size() > 0) {
 			setGridHeightInRows(30);
 			setVisible(true);
