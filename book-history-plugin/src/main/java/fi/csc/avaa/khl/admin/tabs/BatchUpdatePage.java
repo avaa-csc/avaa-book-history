@@ -11,12 +11,8 @@ import com.vaadin.addon.ipcforliferay.LiferayIPC;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.*;
 import com.vaadin.ui.Grid.MultiSelectionModel;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.NativeButton;
-import com.vaadin.ui.VerticalLayout;
 
 import fi.csc.avaa.khl.common.CompleteVanhatkirjat;
 import fi.csc.avaa.khl.common.Const;
@@ -110,6 +106,7 @@ public class BatchUpdatePage extends CustomComponent implements Reconstructible 
 			resultLayout.setExpandRatio(gridButtonLayout, 2.0f);
 
 			updateGrid.populateGrid(search.getSearchResults());
+			updateGrid.setSelectionMode(Grid.SelectionMode.MULTI);
 		}
 		baseLayout.addComponent(resultLayout);
 	}

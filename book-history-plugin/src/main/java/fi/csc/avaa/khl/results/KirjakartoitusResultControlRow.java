@@ -21,12 +21,14 @@ import fi.csc.avaa.vaadin.tools.VaadinTools;
 public class KirjakartoitusResultControlRow extends ResultControlRow<CompleteVanhatkirjat> {
 
 	private static final long serialVersionUID = 1L;
+	private Translator translator;
 
 	public KirjakartoitusResultControlRow(Translator translator) {
-		super(	translator, 
+		super(	translator.localize("Search.FoundAmount"),
 				VaadinTools.createButton(translator.localize("Application.Print"), FontAwesome.PRINT, null, "print-all-btn"), 
 				VaadinTools.createButton(translator.localize("Application.Csv"), FontAwesome.DOWNLOAD, null, "download-csv-btn"),
 				true);
+		this.translator = translator;
 	}
 
 	@Override
